@@ -2,12 +2,10 @@ package com.hnguigu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
-@EnableEurekaServer
-public class RegisterCenterBootsrap {
+public class NacosApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RegisterCenterBootsrap.class,args);
+        SpringApplication.run(NacosApplication.class,args);
     }
 }

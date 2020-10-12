@@ -8,10 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="xc-framework-model" />
-        <module name="xc-register-center" />
         <module name="xc-framework-common" />
         <module name="xc-framework-utils" />
+        <module name="xc-framework-nacos" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="xc-register-center" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

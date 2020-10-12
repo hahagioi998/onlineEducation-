@@ -9,10 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>xc-register-center</module>
         <module>xc-framework-utils</module>
         <module>xc-framework-model</module>
         <module>xc-framework-common</module>
+        <module>xc-framework-nacos</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -46,9 +46,24 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.SR1</version>
-                <type>pom</type>
+                <version>Greenwich.RELEASE</version>
                 <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.1.1.RELEASE</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.4.RELEASE</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
@@ -75,11 +90,6 @@
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.netflix.feign</groupId>
-                <artifactId>feign-okhttp</artifactId>
-                <version>${feign-okhttp.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
