@@ -13,6 +13,9 @@
         <module>xc-framework-model</module>
         <module>xc-framework-common</module>
         <module>xc-framework-nacos</module>
+        <module>xc-service-api</module>
+        <module>xc-service-manage-cms</module>
+        <module>test-freemarker</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

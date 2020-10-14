@@ -8,13 +8,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="xc-framework-model" />
+        <module name="test-freemarker" />
+        <module name="xc-framework-nacos" />
+        <module name="xc-service-api" />
         <module name="xc-framework-common" />
         <module name="xc-framework-utils" />
-        <module name="xc-framework-nacos" />
+        <module name="xc-service-manage-cms" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="xc-register-center" target="1.8" />
+      <module name="xc-service-manage-media" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
