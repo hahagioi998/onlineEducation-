@@ -3,6 +3,7 @@ package com.hnguigu.manage_cms.controller;
 
 import com.hnguigu.api.cms.CmsConfigControllerApi;
 import com.hnguigu.domain.cms.CmsConfig;
+import com.hnguigu.domain.media.MediaFile;
 import com.hnguigu.manage_cms.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
