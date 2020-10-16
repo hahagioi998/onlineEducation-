@@ -10,6 +10,8 @@
         <module name="xc-framework-model" />
         <module name="test-freemarker" />
         <module name="xc-framework-nacos" />
+        <module name="xc-service-manage-media-processor (1) (com.hnguigu)" />
+        <module name="xc-framework-course" />
         <module name="xc-service-api" />
         <module name="xc-service-manage-media" />
         <module name="xc-framework-common" />
@@ -19,6 +21,8 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="xc-register-center" target="1.8" />
+      <module name="xc-service-manage-media-processor" target="1.8" />
+      <module name="xc-service-manage-media-processor (2) (com.xuecheng)" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

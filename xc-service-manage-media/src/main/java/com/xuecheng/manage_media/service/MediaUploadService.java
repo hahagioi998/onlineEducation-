@@ -7,6 +7,7 @@ import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.media.MediaFile;
 import com.hnguigu.domain.media.response.CheckChunkResult;
 import com.hnguigu.domain.media.response.MediaCode;
+import com.xuecheng.manage_media.config.RabbitMQConfig;
 import com.xuecheng.manage_media.dao.MediaFileRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -31,6 +32,11 @@ public class MediaUploadService {
 
     @Value("${xc-service-manage-media.upload-location}")
     String upload_location;
+    //视频处理路由
+    @Value("${xc-service-manage-media.mq.routingkey-media-video}")
+    public  String routingkey_media_video;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     //得到文件所属目录路径
     private String getFileFolderPath(String fileMd5){
@@ -188,37 +194,10 @@ public class MediaUploadService {
         //状态为上传成功
         mediaFile.setFileStatus("301002");
         mediaFileRepository.save(mediaFile);
-//        //向MQ发送视频处理消息
-//        sendProcessVideoMsg(mediaFile.getFileId());
+        //向MQ发送视频处理消息
+        sendProcessvideoMsg(mediaFile.getFileId());
         return new ResponseResult(CommonCode.SUCCESS);
     }
-
-    /**
-     * 发送视频处理消息
-     * @param // mediaId 文件id
-     * @return
-     */
-//    public ResponseResult sendProcessVideoMsg(String mediaId){
-//
-//        //查询数据库mediaFile
-//        Optional<MediaFile> optional = mediaFileRepository.findById(mediaId);
-//        if(!optional.isPresent()){
-//            ExceptionCast.cast(CommonCode.FAIL);
-//        }
-//        //构建消息内容
-//        Map<String,String> map = new HashMap<>();
-//        map.put("mediaId",mediaId);
-//        String jsonString = JSON.toJSONString(map);
-//        //向MQ发送视频处理消息
-//        try {
-//            rabbitTemplate.convertAndSend(RabbitMQConfig.EX_MEDIA_PROCESSTASK,routingkey_media_video,jsonString);
-//        } catch (AmqpException e) {
-//            e.printStackTrace();
-//            return new ResponseResult(CommonCode.FAIL);
-//        }
-//
-//        return new ResponseResult(CommonCode.SUCCESS);
-//    }
 
     //校验文件
     private boolean checkFileMd5(File mergeFile,String md5){
@@ -279,5 +258,26 @@ public class MediaUploadService {
             e.printStackTrace();
             return null;
         }
+    }
+    //发送视频处理的消息
+    public  ResponseResult sendProcessvideoMsg(String mediaId){
+        Optional<MediaFile> byId = mediaFileRepository.findById(mediaId);
+        if(!byId.isPresent()){
+            ExceptionCast.cast(CommonCode.FAIL);
+        }
+        //构建消息
+        Map<String,String> map=new HashMap<>();
+        map.put("mediaId",mediaId);
+        String jsonString = JSON.toJSONString(map);
+        //向mqf发送s视频处理的消息
+        try {
+            rabbitTemplate.convertAndSend(RabbitMQConfig.EX_MEDIA_PROCESSTASK,routingkey_media_video,jsonString);
+        } catch (AmqpException e) {
+            e.printStackTrace();
+            return  new ResponseResult(CommonCode.FAIL);
+        }
+
+        return new ResponseResult(CommonCode.SUCCESS);
+
     }
 }

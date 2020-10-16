@@ -20,7 +20,7 @@ import javax.xml.crypto.Data;
  **/
 @EnableDiscoveryClient//从Eureka Server获取服务
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)//扫描所在包及子包的bean，注入到ioc中
-@EntityScan("com.xuecheng.framework.domain.media")//扫描实体类
+@EntityScan("com.huguigu.framework.domain.media")//扫描实体类
 @ComponentScan(basePackages={"com.hnguigu.api"})//扫描接口
 @ComponentScan(basePackages={"com.hnguigu"})//扫描framework中通用类
 @ComponentScan(basePackages={"com.xuecheng.manage_media"})//扫描本项目下的所有类

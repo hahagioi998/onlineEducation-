@@ -81,10 +81,10 @@ public class Mp4VideoUtil extends VideoUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        String ffmpeg_path = "D:\\Program Files\\ffmpeg-20180227-fa0c9d6-win64-static\\bin\\ffmpeg.exe";//ffmpeg的安装位置
-        String video_path = "E:\\ffmpeg_test\\1.avi";
+        String ffmpeg_path = "D:\\softwareFactory\\instrument\\ffmpeg\\ffmpeg-20180227-fa0c9d6-win64-static\\bin\\ffmpeg.exe";//ffmpeg的安装位置
+        String video_path = "D:\\softwareFactory\\在线教育平台\\01-搭建环境 CMS服务端开发\\视频\\01-项目概述-功能构架-项目背景.avi";
         String mp4_name = "809694a6a974c35e3a36f36850837d7c.mp4";
-        String mp4_path = "F:/develop/upload/8/0/809694a6a974c35e3a36f36850837d7c/";
+        String mp4_path = "D:\\softwareFactory\\video";
         Mp4VideoUtil videoUtil = new Mp4VideoUtil(ffmpeg_path,video_path,mp4_name,mp4_path);
         String s = videoUtil.generateMp4();
         System.out.println(s);

@@ -17,6 +17,13 @@ spring:
       database: xc_media
       host: 127.0.0.1
       port: 27017
+  #rabbitmq配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 ribbon:
   MaxAutoRetries: 2 #最大重试次数，当Eureka中可以找到服务，但是服务连不上时将会重试，如果eureka中找不到服务则直接走断路器
   MaxAutoRetriesNextServer: 3 #切换实例的重试次数
@@ -25,3 +32,7 @@ ribbon:
   ReadTimeout: 6000 #请求处理的超时时间
 xc-service-manage-media:
    upload-location: D:/softwareFactory/video/
+   mq:
+     queue-media-video-processor: queue_media_video_processor
+     routingkey-media-video: routingkey_media_video
+   ffmpeg-path: D:/softwareFactory/instrument/ffmpeg/ffmpeg-20180227-fa0c9d6-win64-static/bin/ffmpeg.exe
