@@ -140,8 +140,10 @@ public class TeachplanServiceimpl implements TeachplanService {
                 List<TeachplanNode> children = teachplanNode.getChildren();
                 TeachplanNode teachplanNode1 = children.get(0);
                 teachplan.setParentid(teachplanNode1.getId());
+                teachplan.setGrade("2");
+            }else{
+                teachplan.setGrade("3");
             }
-            teachplan.setGrade("1");
             base = teachplanRepository.save(teachplan);
         }else{
             new CustomException(CommonCode.INVALID_PARAM);

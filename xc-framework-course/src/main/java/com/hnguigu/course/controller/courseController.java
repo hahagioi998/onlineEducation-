@@ -75,16 +75,15 @@ public class courseController implements CourseControllerApi {
     @Override
     public CourseMarket findByid(@PathVariable  String courseid) {
         CourseMarket courseMarket = courseMarketService.findByid(courseid);
-        //判断查询出来的数据里面的结束时间是否已经超过了当前时间
-        Date endTime = courseMarket.getEndTime();
-        Date date = new Date();
-        if(!date.before(endTime)){
-            //超过结束时间则删除改营销计划，并且向course_off表添加一条已经过期的数据，方便查看
-            boolean b = courseMarketService.deleteCourseMarket(courseMarket);
-            if(b){
-                CourseBase courseBase = courseBaseService.queryCourseBaseByid(courseMarket.getId());
-                CoursePic coursePic = coursePicService.findCoursePicBycourseId(courseid);
-
+        if(courseMarket!=null){
+            //判断查询出来的数据里面的结束时间是否已经超过了当前时间
+            Date endTime = courseMarket.getEndTime();
+            if(endTime!=null){
+                Date date = new Date();
+                if(!date.before(endTime)){
+                    //超过结束时间则删除改营销计划，并且向course_off表添加一条已经过期的数据，方便查看
+                    boolean b = courseMarketService.deleteCourseMarket(courseMarket);
+                }
             }
         }
         return courseMarket;

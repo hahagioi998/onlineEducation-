@@ -34,7 +34,7 @@ public class CoursePicServiceimpl implements CoursePicService {
         };
         Optional<CoursePic> one = coursePicRepository.findOne(specification);
         CoursePic coursePic = null;
-        if(one!=null){
+        if(one.isPresent()){
             coursePic = one.get();
         }
         return coursePic;
