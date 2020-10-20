@@ -1,6 +1,8 @@
 package com.hnguigu.course.service.course;
 
+import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.course.Teachplan;
+import com.hnguigu.domain.course.TeachplanMedia;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
@@ -20,4 +22,6 @@ public interface TeachplanService {
     DeleteCourseResult deleteTheachplan(TeachplanNode teachplanNode);
 
     Teachplan findTeachplanByid(String id);
+
+    ResponseResult saveMdia(TeachplanMedia teachplanMedia);
 }

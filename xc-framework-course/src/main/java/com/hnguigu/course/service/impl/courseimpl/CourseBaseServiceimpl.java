@@ -139,6 +139,14 @@ public class CourseBaseServiceimpl implements CourseBaseService {
         AddCourseResult addCourseResult = null;
         if(courseBase!=null){
             base = courseBaseRepository.save(courseBase);
+            //添加一个根节点
+            Teachplan teachplan = new Teachplan();
+            teachplan.setPname(base.getName());
+            teachplan.setGrade("1");
+            teachplan.setParentid("0");
+            teachplan.setStatus("1");
+            teachplan.setCourseid(base.getId());
+            teachplanRepository.save(teachplan);
         }else{
             new CustomException(CommonCode.INVALID_PARAM);
         }
