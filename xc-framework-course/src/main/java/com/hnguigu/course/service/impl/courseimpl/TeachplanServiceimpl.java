@@ -1,14 +1,20 @@
 package com.hnguigu.course.service.impl.courseimpl;
 
 import com.hnguigu.common.exception.CustomException;
+import com.hnguigu.common.exception.ExceptionCast;
 import com.hnguigu.common.model.response.CommonCode;
+import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.common.model.response.ResultCode;
+import com.hnguigu.course.repository.TeachplanMediaRepositor;
 import com.hnguigu.course.repository.TeachplanRepository;
 import com.hnguigu.course.service.course.TeachplanService;
 import com.hnguigu.domain.course.Teachplan;
+import com.hnguigu.domain.course.TeachplanMedia;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
+import com.hnguigu.domain.course.response.CourseCode;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,6 +25,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeachplanServiceimpl implements TeachplanService {
@@ -26,6 +33,8 @@ public class TeachplanServiceimpl implements TeachplanService {
 
     @Autowired
     private TeachplanRepository teachplanRepository;
+    @Autowired
+    private TeachplanMediaRepositor teachplanMediaRepositor;
 
     @Override
     public TeachplanNode queryTeachplanBycourseid(String id) {
@@ -181,5 +190,45 @@ public class TeachplanServiceimpl implements TeachplanService {
         ResultCode resultCode =null;
         deleteCourseResult = new DeleteCourseResult(CommonCode.SUCCESS,"1");
         return deleteCourseResult;
+    }
+
+    //保存课程计划和媒资w文件的管理信息
+    @Override
+    public ResponseResult saveMdia(TeachplanMedia teachplanMedia) {
+        if(teachplanMedia==null|| StringUtils.isEmpty(teachplanMedia.getTeachplanId())){
+            ExceptionCast.cast(CommonCode.INVALID_PARAM);
+        }
+        //校验课程计划是否是三级
+        //课程计划
+        String teachplanId = teachplanMedia.getTeachplanId();
+        //查询到课程计划
+        Optional<Teachplan> teachplan = teachplanRepository.findById(teachplanId);
+        if(!teachplan.isPresent()){
+            ExceptionCast.cast(CommonCode.INVALID_PARAM);
+        }
+        //查询到教学计划
+        Teachplan teachplan1 = teachplan.get();
+        //取出等级
+        String grade = teachplan1.getGrade();
+        if(StringUtils.isEmpty(grade)){
+               ExceptionCast.cast(CourseCode.COURSE_MEDIA_TEACHPLAN_GRADEERROR);
+        }
+        //查询teachplanMedia
+        Optional<TeachplanMedia> optionalTeachplanMedia = teachplanMediaRepositor.findById(teachplanId);
+        TeachplanMedia teachplanMedia1=null;
+        if(optionalTeachplanMedia.isPresent()){
+             teachplanMedia1=optionalTeachplanMedia.get();
+        }else{
+            teachplanMedia1=new TeachplanMedia();
+        }
+        //将TeachplanMedia保存到数据库
+        teachplanMedia1.setCourseId(teachplan1.getCourseid());
+        teachplanMedia1.setMediaId(teachplanMedia.getMediaId());
+        teachplanMedia1.setMediaFileOriginalName(teachplanMedia.getMediaFileOriginalName());
+        teachplanMedia1.setMediaUrl(teachplanMedia.getMediaUrl());
+        teachplanMedia1.setTeachplanId(teachplanId);
+        teachplanMediaRepositor.save(teachplanMedia1);
+
+        return new ResponseResult(CommonCode.SUCCESS);
     }
 }
