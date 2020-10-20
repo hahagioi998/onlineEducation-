@@ -1,7 +1,7 @@
 package com.hnguigu.course.service.impl.courseimpl;
 
-import com.hnguigu.course.service.course.CategoryService;
 import com.hnguigu.course.repository.CategoryRepository;
+import com.hnguigu.course.service.course.CategoryService;
 import com.hnguigu.domain.course.Category;
 import com.hnguigu.domain.course.ext.CategoryNode;
 import org.springframework.beans.factory.annotation.Autowired;

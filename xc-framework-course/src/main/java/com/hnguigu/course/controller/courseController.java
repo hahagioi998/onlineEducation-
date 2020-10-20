@@ -2,24 +2,34 @@ package com.hnguigu.course.controller;
 
 
 import com.hnguigu.api.course.CourseControllerApi;
-import com.hnguigu.course.service.course.CourseBaseService;
-import com.hnguigu.course.service.course.CourseMarketService;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
+import com.hnguigu.course.service.course.CourseBaseService;
+import com.hnguigu.course.service.course.CourseMarketService;
+import com.hnguigu.course.service.course.CoursePicService;
+import com.hnguigu.course.service.course.TeachplanService;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
-import com.hnguigu.domain.course.ext.CategoryNode;
+import com.hnguigu.domain.course.CoursePic;
+import com.hnguigu.domain.course.Teachplan;
 import com.hnguigu.domain.course.ext.CourseInfo;
+import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
+import com.hnguigu.domain.course.response.DeleteCourseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.List;
+
 @CrossOrigin
 @Controller
 @RequestMapping("/course")
 public class courseController implements CourseControllerApi {
+
+
 
     @Autowired
     private CourseBaseService courseBaseService;
@@ -27,13 +37,18 @@ public class courseController implements CourseControllerApi {
     @Autowired
     private CourseMarketService courseMarketService;
 
+    @Autowired
+    private TeachplanService teachplanService;
+
+    @Autowired
+    private CoursePicService coursePicService;
+
     @GetMapping("/coursebase/list/{page}/{size}")
     @ResponseBody
     @Override
     public QueryResult<CourseInfo> queryPageCourseBase(@PathVariable Integer page,@PathVariable Integer size,@Param(value = "userId") String userId) {
         //查询course_base表数据
         QueryResult<CourseInfo> queryResult = courseBaseService.queryPageCourseBase(page,size);
-
         return queryResult;
     }
 
@@ -59,7 +74,20 @@ public class courseController implements CourseControllerApi {
     @ResponseBody
     @Override
     public CourseMarket findByid(@PathVariable  String courseid) {
-        return courseMarketService.findByid(courseid);
+        CourseMarket courseMarket = courseMarketService.findByid(courseid);
+        //判断查询出来的数据里面的结束时间是否已经超过了当前时间
+        Date endTime = courseMarket.getEndTime();
+        Date date = new Date();
+        if(!date.before(endTime)){
+            //超过结束时间则删除改营销计划，并且向course_off表添加一条已经过期的数据，方便查看
+            boolean b = courseMarketService.deleteCourseMarket(courseMarket);
+            if(b){
+                CourseBase courseBase = courseBaseService.queryCourseBaseByid(courseMarket.getId());
+                CoursePic coursePic = coursePicService.findCoursePicBycourseId(courseid);
+
+            }
+        }
+        return courseMarket;
     }
 
     @PostMapping("/coursemarket/addAndupdateMarket")
@@ -82,5 +110,37 @@ public class courseController implements CourseControllerApi {
         return addCourseResult;
     }
 
+    @GetMapping("/teachplan/list/{courseid}")
+    @ResponseBody
+    @Override
+    public TeachplanNode queryTeachplanBycourseid(@PathVariable String courseid) {
+        TeachplanNode teachplanNode = teachplanService.queryTeachplanBycourseid(courseid);
+        return teachplanNode;
+    }
+
+    @GetMapping("/teachplan/TeachplanBytesPoint/{id}")
+    @ResponseBody
+    @Override
+    public List<Teachplan> findTeachplanBytesPoint(@PathVariable String id) {
+        List<Teachplan> teachplan = teachplanService.findTeachplan(id);
+        return teachplan;
+    }
+
+    @PostMapping("/teachplan/add")
+    @ResponseBody
+    @Override
+    public AddCourseResult addTeachplan(@RequestBody  Teachplan teachplan) {
+        AddCourseResult addCourseResult = teachplanService.addTeachplan(teachplan);
+        return addCourseResult;
+    }
+
+    @PostMapping("/teachplan/deleteteachplan")
+    @ResponseBody
+    @Override
+    public DeleteCourseResult deleteTeachplan(@RequestBody TeachplanNode teachplanNode) {
+        DeleteCourseResult deleteCourseResult = teachplanService.deleteTheachplan(teachplanNode);
+        return deleteCourseResult;
+    }
 
 }
+

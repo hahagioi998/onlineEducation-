@@ -1,12 +1,12 @@
 package com.hnguigu.course.service.impl.courseimpl;
 
-import com.hnguigu.course.service.course.CourseBaseService;
 import com.hnguigu.common.exception.CustomException;
 import com.hnguigu.common.model.response.CommonCode;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResultCode;
 import com.hnguigu.course.repository.CourseBaseRepository;
 import com.hnguigu.course.repository.CoursePicRepository;
+import com.hnguigu.course.service.course.CourseBaseService;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CoursePic;
 import com.hnguigu.domain.course.ext.CourseInfo;

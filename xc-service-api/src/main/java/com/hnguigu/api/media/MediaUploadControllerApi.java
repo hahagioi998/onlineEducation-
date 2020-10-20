@@ -4,7 +4,6 @@ import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.media.response.CheckChunkResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.management.resource.ResourceRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 

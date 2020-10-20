@@ -1,11 +1,11 @@
 package com.hnguigu.course.service.impl.courseimpl;
 
-import com.hnguigu.course.service.course.CourseMarketService;
 import com.hnguigu.common.exception.CustomException;
 import com.hnguigu.common.model.response.CommonCode;
 import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.common.model.response.ResultCode;
 import com.hnguigu.course.repository.CourseMarketRepository;
+import com.hnguigu.course.service.course.CourseMarketService;
 import com.hnguigu.domain.course.CourseMarket;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +66,11 @@ public class CourseMarketServiceimpl implements CourseMarketService {
             addCourseResult = new AddCourseResult(CommonCode.FAIL,null);
         }
         return addCourseResult;
+    }
+
+    @Override
+    public boolean deleteCourseMarket(CourseMarket courseMarket) {
+        courseMarketRepository.delete(courseMarket);
+        return true;
     }
 }

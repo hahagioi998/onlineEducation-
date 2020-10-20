@@ -4,9 +4,13 @@ import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
-import com.hnguigu.domain.course.ext.CategoryNode;
+import com.hnguigu.domain.course.Teachplan;
 import com.hnguigu.domain.course.ext.CourseInfo;
+import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
+import com.hnguigu.domain.course.response.DeleteCourseResult;
+
+import java.util.List;
 
 public interface CourseControllerApi {
 
@@ -27,5 +31,17 @@ public interface CourseControllerApi {
 
     //修改CourseBase数据
     AddCourseResult updateCourseBase(CourseBase courseBase);
+
+    //根据课程id查询当前课程的课程计划
+    TeachplanNode queryTeachplanBycourseid(String courseid);
+
+    //添加课程计划
+    AddCourseResult addTeachplan(Teachplan teachplan);
+
+    //根据根节点的id查询所有的子节点
+    List<Teachplan> findTeachplanBytesPoint(String id);
+
+    //删除课程计划
+    DeleteCourseResult  deleteTeachplan(TeachplanNode teachplanNode);
 
 }
