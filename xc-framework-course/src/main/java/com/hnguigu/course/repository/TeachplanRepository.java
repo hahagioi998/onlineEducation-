@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /*
 *  课程计划
 * */
-public interface TeachplanRepository extends JpaRepository<Teachplan,Integer>, JpaSpecificationExecutor<Teachplan> {
+public interface TeachplanRepository extends JpaRepository<Teachplan,String>, JpaSpecificationExecutor<Teachplan> {
 
 }

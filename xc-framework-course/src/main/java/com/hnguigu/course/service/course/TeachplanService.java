@@ -18,4 +18,6 @@ public interface TeachplanService {
     AddCourseResult addTeachplan(Teachplan teachplan);
 
     DeleteCourseResult deleteTheachplan(TeachplanNode teachplanNode);
+
+    Teachplan findTeachplanByid(String id);
 }

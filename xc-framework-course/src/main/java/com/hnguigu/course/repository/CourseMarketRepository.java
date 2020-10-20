@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /*
 *   课程营销信息
 * */
-public interface CourseMarketRepository extends JpaRepository<CourseMarket,Integer>, JpaSpecificationExecutor<CourseMarket> {
+public interface CourseMarketRepository extends JpaRepository<CourseMarket,String>, JpaSpecificationExecutor<CourseMarket> {
 
 }

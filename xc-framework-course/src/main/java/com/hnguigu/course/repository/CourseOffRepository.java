@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /*
 *   课程基本信息
 * */
-public interface CourseOffRepository extends JpaRepository<CourseOff,Integer>, JpaSpecificationExecutor<CourseOff> {
+public interface CourseOffRepository extends JpaRepository<CourseOff,String>, JpaSpecificationExecutor<CourseOff> {
 
 }

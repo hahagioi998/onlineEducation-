@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /*
 *   课程图片
 * */
-public interface CoursePicRepository extends JpaRepository<CoursePic,Integer>, JpaSpecificationExecutor<CoursePic> {
+public interface CoursePicRepository extends JpaRepository<CoursePic,String>, JpaSpecificationExecutor<CoursePic> {
 
 }

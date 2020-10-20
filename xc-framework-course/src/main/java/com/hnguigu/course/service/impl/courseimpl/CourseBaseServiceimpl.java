@@ -6,9 +6,11 @@ import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResultCode;
 import com.hnguigu.course.repository.CourseBaseRepository;
 import com.hnguigu.course.repository.CoursePicRepository;
+import com.hnguigu.course.repository.TeachplanRepository;
 import com.hnguigu.course.service.course.CourseBaseService;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CoursePic;
+import com.hnguigu.domain.course.Teachplan;
 import com.hnguigu.domain.course.ext.CourseInfo;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class CourseBaseServiceimpl implements CourseBaseService {
 
     @Autowired
     private CoursePicRepository coursePicRepository;
+
+    @Autowired
+    private TeachplanRepository teachplanRepository;
 
     @Override
     public QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size) {
@@ -90,6 +95,14 @@ public class CourseBaseServiceimpl implements CourseBaseService {
         AddCourseResult addCourseResult = null;
         if(courseBase!=null){
             base = courseBaseRepository.save(courseBase);
+            //添加一个根节点
+            Teachplan teachplan = new Teachplan();
+            teachplan.setPname(base.getName());
+            teachplan.setGrade("1");
+            teachplan.setParentid("0");
+            teachplan.setStatus("1");
+            teachplan.setCourseid(base.getId());
+            teachplanRepository.save(teachplan);
         }else{
             new CustomException(CommonCode.INVALID_PARAM);
         }

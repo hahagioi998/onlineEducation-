@@ -19,6 +19,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeachplanServiceimpl implements TeachplanService {
@@ -41,8 +42,8 @@ public class TeachplanServiceimpl implements TeachplanService {
             }
         };
         List<Teachplan> list = teachplanRepository.findAll(specification);
-        TeachplanNode gen1 = new TeachplanNode();
-        List<TeachplanNode> nodeList = new ArrayList<>();
+        /*TeachplanNode gen1 = new TeachplanNode();
+        List<TeachplanNode> nodeList = new ArrayList<>();*/
         TeachplanNode gen =  new TeachplanNode();
         //查询根对象
         for (Teachplan teachplan : list) {
@@ -108,9 +109,9 @@ public class TeachplanServiceimpl implements TeachplanService {
             // list2.clear();
             list2 = new ArrayList<TeachplanNode>();
         }
-        nodeList.add(gen);
-        gen1.setChildren(nodeList);
-        return gen1;
+        /*nodeList.add(gen);
+        gen1.setChildren(nodeList);*/
+        return gen;
     }
 
     @Override
@@ -131,15 +132,23 @@ public class TeachplanServiceimpl implements TeachplanService {
     }
 
     @Override
+    public Teachplan findTeachplanByid(String id) {
+        Optional<Teachplan> teachplan = teachplanRepository.findById(id);
+        Teachplan teachplan1 = null;
+        if(teachplan.isPresent()){
+            teachplan1 = teachplan.get();
+        }
+        return teachplan1;
+    }
+
+    @Override
     public AddCourseResult addTeachplan(Teachplan teachplan) {
         Teachplan base = null;
         AddCourseResult addCourseResult = null;
         if(teachplan!=null){
             if(teachplan.getParentid()==null){
                 TeachplanNode teachplanNode = queryTeachplanBycourseid(teachplan.getCourseid());
-                List<TeachplanNode> children = teachplanNode.getChildren();
-                TeachplanNode teachplanNode1 = children.get(0);
-                teachplan.setParentid(teachplanNode1.getId());
+                teachplan.setParentid(teachplanNode.getId());
                 teachplan.setGrade("2");
             }else{
                 teachplan.setGrade("3");
