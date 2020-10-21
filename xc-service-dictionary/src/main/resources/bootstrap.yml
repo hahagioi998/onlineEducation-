@@ -1,0 +1,14 @@
+server:
+  port: 31002
+spring:
+  application:
+    name: xc-service-dictionary
+  data:
+    mongodb:
+      uri: mongodb://localhost
+      database: xc_cms
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: http://127.0.0.1:8848
