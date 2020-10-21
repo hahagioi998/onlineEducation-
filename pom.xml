@@ -21,6 +21,8 @@
         <module>xc-service-manage-media-processor</module>
         <module>xc-service-ucenter</module>
         <module>xc-service-ucenter-auth</module>
+        <module>xc-service-dictionary</module>
+        <module>xc-service-manage-cms-client</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

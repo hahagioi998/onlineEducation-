@@ -8,20 +8,24 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="xc-framework-model" />
-        <module name="test-freemarker" />
         <module name="xc-framework-nacos" />
-        <module name="xc-service-manage-media-processor (1) (com.hnguigu)" />
-        <module name="xc-framework-course" />
-        <module name="xc-service-api" />
-        <module name="xc-service-manage-media" />
+        <module name="xc-service-dictionary" />
+        <module name="xc-service-ucenter" />
         <module name="xc-framework-common" />
         <module name="xc-framework-utils" />
+        <module name="test-freemarker" />
+        <module name="xc-service-manage-media-processor (1) (com.hnguigu)" />
+        <module name="xc-service-ucenter-auth" />
+        <module name="xc-framework-course" />
+        <module name="xc-service-manage-cms-client" />
+        <module name="xc-service-api" />
+        <module name="xc-service-manage-media" />
         <module name="xc-service-manage-cms" />
+        <module name="xc-service-manage-media-processor" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="xc-register-center" target="1.8" />
-      <module name="xc-service-manage-media-processor" target="1.8" />
       <module name="xc-service-manage-media-processor (2) (com.xuecheng)" target="1.5" />
     </bytecodeTargetLevel>
   </component>
