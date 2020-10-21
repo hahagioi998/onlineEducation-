@@ -19,6 +19,8 @@
         <module>test-freemarker</module>
         <module>xc-service-manage-media</module>
         <module>xc-service-manage-media-processor</module>
+        <module>xc-service-ucenter</module>
+        <module>xc-service-ucenter-auth</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
