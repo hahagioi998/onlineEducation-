@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.hnguigu.manage_cms.RestTemplateTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.223 sec <<< FAILURE!
-testRestTemplate(com.hnguigu.manage_cms.RestTemplateTest)  Time elapsed: 4.22 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.114 sec <<< FAILURE!
+testRestTemplate(com.hnguigu.manage_cms.RestTemplateTest)  Time elapsed: 4.112 sec  <<< ERROR!
 org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:31001/cms/config/getmodel/5a791725dd573c3574ee333f": Failed to connect to localhost/0:0:0:0:0:0:0:1:31001; nested exception is java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:31001
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:744)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:670)

@@ -5,6 +5,7 @@ import com.hnguigu.common.model.response.QueryResponseResult;
 import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.dictionary.service.SysDictionaryService;
 import com.hnguigu.domain.system.SysDictionary;
+import com.hnguigu.domain.system.request.QueryDictionaryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +19,13 @@ public class SysDictionaryController implements SysDictionaryControllerApi {
      * 条件分页查询
      * @param page
      * @param size
-     * @param name
+     * @param queryDictionaryRequest
      * @return
      */
-    @GetMapping("/list/{page}/{size}/{name}")
+    @GetMapping("/list/{page}/{size}")
     @Override
-    public QueryResponseResult findDictionary(@PathVariable("page") Integer page, @PathVariable("size") Integer size,@PathVariable("name") String name){
-        return sysDictionaryService.findDictionary(page,size,name);
+    public QueryResponseResult findDictionary(@PathVariable("page") Integer page, @PathVariable("size") Integer size, QueryDictionaryRequest queryDictionaryRequest){
+        return sysDictionaryService.findDictionary(page,size,queryDictionaryRequest);
     }
 
     /**
@@ -43,7 +44,7 @@ public class SysDictionaryController implements SysDictionaryControllerApi {
      * @param id
      * @return
      */
-    @GetMapping("/del/{id}")
+    @DeleteMapping("/del/{id}")
     @Override
     public ResponseResult deleteDictionary(@PathVariable("id") String id){
         return sysDictionaryService.deleteDictionary(id);
