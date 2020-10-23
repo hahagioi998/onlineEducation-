@@ -19,7 +19,7 @@ public interface CmsPageControllerApi {
     CmsPageResult addPage(CmsPage cmsPage);
 
     //页面修改
-    CmsPageResult updatePage(String id,CmsPage cmsPage);
+    CmsPageResult updatePage(String id, CmsPage cmsPage);
 
     //页面查询
     CmsPage findById(String id);
@@ -28,11 +28,14 @@ public interface CmsPageControllerApi {
     ResponseResult deletePage(String id);
 
     //生成静态文件
-    String  generateHtml(String id);
+    String generateHtml(String id);
 
     //取出静态文件
-    String  getHtml(String id);
+    String getHtml(String id);
 
     //发布页面
-    String  postPage(String id);
+    String postPage(String id);
+
+    //保存页面
+    CmsPageResult save(CmsPage cmsPage);
 }
