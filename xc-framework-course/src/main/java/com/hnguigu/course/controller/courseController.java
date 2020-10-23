@@ -10,11 +10,13 @@ import com.hnguigu.course.service.course.CoursePicService;
 import com.hnguigu.course.service.course.TeachplanService;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
-import com.hnguigu.domain.course.CoursePic;
 import com.hnguigu.domain.course.Teachplan;
+import com.hnguigu.domain.course.TeachplanMedia;
 import com.hnguigu.domain.course.ext.CourseInfo;
+import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
+import com.hnguigu.domain.course.response.CoursePublishResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -141,5 +143,23 @@ public class courseController implements CourseControllerApi {
         return deleteCourseResult;
     }
 
+    @Override
+    @PostMapping("savemedia")
+    public ResponseResult saveMedia(@RequestBody TeachplanMedia teachplanMedia) {
+        return teachplanService.saveMdia(teachplanMedia);
+    }
+
+    @Override
+    @ResponseBody
+    @GetMapping("/courseview/{id}")
+    public CourseView courseview(@PathVariable("id") String id) {
+        return courseBaseService.getCoruseView(id);
+    }
+
+    @Override
+    @PostMapping("/previwe/{id}")
+    public CoursePublishResult preview(@PathVariable String id) {
+        return courseBaseService.preview(id);
+    }
 }
 

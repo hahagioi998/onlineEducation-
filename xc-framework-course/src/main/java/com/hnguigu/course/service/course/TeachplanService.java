@@ -21,7 +21,8 @@ public interface TeachplanService {
 
     DeleteCourseResult deleteTheachplan(TeachplanNode teachplanNode);
 
+    ResponseResult saveMdia(TeachplanMedia teachplanMedia);
+
     Teachplan findTeachplanByid(String id);
 
-    ResponseResult saveMdia(TeachplanMedia teachplanMedia);
 }
