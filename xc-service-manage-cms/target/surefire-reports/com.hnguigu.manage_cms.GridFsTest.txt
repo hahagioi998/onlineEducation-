@@ -1,14 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: com.hnguigu.manage_cms.GridFsTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.093 sec <<< FAILURE!
-queryFile(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.064 sec  <<< ERROR!
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.052 sec <<< FAILURE!
+queryFile(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.029 sec  <<< ERROR!
 java.lang.NullPointerException
 	at com.hnguigu.manage_cms.GridFsTest.queryFile(GridFsTest.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:497)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
@@ -34,25 +34,25 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:497)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
 	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
 	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testStore(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.001 sec  <<< ERROR!
+testStore(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.005 sec  <<< ERROR!
 java.io.FileNotFoundException: c:\course.ftl (系统找不到指定的文件。)
 	at java.io.FileInputStream.open0(Native Method)
-	at java.io.FileInputStream.open(FileInputStream.java:195)
-	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
 	at com.hnguigu.manage_cms.GridFsTest.testStore(GridFsTest.java:44)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:497)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
@@ -78,9 +78,9 @@ java.io.FileNotFoundException: c:\course.ftl (系统找不到指定的文件。)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:497)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
 	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
 	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)

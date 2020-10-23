@@ -21,6 +21,7 @@ public class ManageCmsApplication {
     }
 
     @Bean
+
     public RestTemplate restTemplate(){
         return new RestTemplate(new OkHttp3ClientHttpRequestFactory());
     }

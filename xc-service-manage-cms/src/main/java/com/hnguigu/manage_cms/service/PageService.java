@@ -327,5 +327,14 @@ public class PageService {
     public List<CmsTemplate> queryAllTemplate(){
         return cmsTemplateRepository.findAll();
     }
+    //保存页面，有则更新，没有则添加
+    public CmsPageResult save(CmsPage cmsPage) {
+        CmsPage byPageNameAndSiteIdAndPageWebPath = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath
+                (cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
 
+        if(byPageNameAndSiteIdAndPageWebPath!=null){
+               return  this.updatePage(byPageNameAndSiteIdAndPageWebPath.getPageId(),cmsPage);
+        }
+        return this.addPage(cmsPage);
+    }
 }
