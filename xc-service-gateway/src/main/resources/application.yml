@@ -9,6 +9,9 @@ spring:
         enabled: true
         server-addr: http://127.0.0.1:8848
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
         - id: ucenter_auth
           uri: lb://xc-service-ucenter-auth
@@ -16,4 +19,15 @@ spring:
             - Path=/api/auth/**
           filters:
             - StripPrefix=1
-            - Log=file
+        - id: ucenter
+          uri: lb://xc-service-ucenter
+          predicates:
+            - Path=/api/ucenter/**
+          filters:
+            - StripPrefix=1
+        - id: framework-course
+          uri: lb://xc-framework-course
+          predicates:
+            - Path=/api/course/**
+          filters:
+            - StripPrefix=1

@@ -7,6 +7,8 @@ import com.hnguigu.domain.ucenter.response.LoginResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by Administrator.
  */
@@ -20,4 +22,7 @@ public interface AuthControllerApi {
 
     @ApiOperation("查询用户jwt令牌")
     public JwtResult userjwt();
+
+    @ApiOperation("查询用户jwt令牌带参")
+    public JwtResult userjwtbyid(String uid);
 }

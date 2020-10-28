@@ -243,4 +243,22 @@ public class TeachplanServiceimpl implements TeachplanService {
 
         return new ResponseResult(CommonCode.SUCCESS);
     }
+
+    @Override
+    public AddCourseResult UpdateTeachplan(Teachplan teachplan) {
+        Teachplan base = null;
+        AddCourseResult addCourseResult = null;
+        if(teachplan!=null){
+            base = teachplanRepository.save(teachplan);
+        }else{
+            new CustomException(CommonCode.INVALID_PARAM);
+        }
+        ResultCode resultCode =null;
+        if(base!=null){
+            addCourseResult = new AddCourseResult(CommonCode.SUCCESS,base.getId());
+        }else{
+            addCourseResult = new AddCourseResult(CommonCode.FAIL,null);
+        }
+        return addCourseResult;
+    }
 }

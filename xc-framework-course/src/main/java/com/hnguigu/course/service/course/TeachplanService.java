@@ -25,4 +25,7 @@ public interface TeachplanService {
 
     Teachplan findTeachplanByid(String id);
 
+    //添加teachplan数据
+    AddCourseResult UpdateTeachplan(Teachplan teachplan);
+
 }

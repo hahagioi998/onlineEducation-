@@ -11,7 +11,7 @@ import com.hnguigu.domain.course.response.CoursePublishResult;
 public interface CourseBaseService {
 
     //查询课程基本信息并且分页
-    QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size);
+    QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size,String userId);
 
     //添加CourseBase数据
     AddCourseResult addCourseBase(CourseBase courseBase);
@@ -25,4 +25,6 @@ public interface CourseBaseService {
     CourseView getCoruseView(String id);
 
     CoursePublishResult preview(String id);
+
+    CoursePublishResult publish(String id);
 }

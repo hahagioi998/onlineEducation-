@@ -18,7 +18,8 @@ import java.io.Serializable;
 public class XcTeacher implements Serializable {
     private static final long serialVersionUID = -916357110051689786L;
     @Id
-    @GeneratedValue(generator = "jpa-assigned")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid")
     @Column(length = 32)
     private String id;
     private String name;
@@ -27,5 +28,4 @@ public class XcTeacher implements Serializable {
     private String resume;
     @Column(name="user_id")
     private String userId;
-
 }

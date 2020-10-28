@@ -6,6 +6,7 @@ import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.cms.CmsPage;
 import com.hnguigu.domain.cms.request.QueryPageRequest;
 import com.hnguigu.domain.cms.response.CmsPageResult;
+import com.hnguigu.domain.cms.response.CmsPostPageResult;
 import io.swagger.annotations.Api;
 
 import javax.management.Query;
@@ -34,8 +35,11 @@ public interface CmsPageControllerApi {
     String getHtml(String id);
 
     //发布页面
-    String postPage(String id);
+    ResponseResult postPage(String id);
 
     //保存页面
     CmsPageResult save(CmsPage cmsPage);
+
+    //一键发布页面
+    public CmsPostPageResult postPageQuick(CmsPage cmsPage);
 }

@@ -19,7 +19,8 @@ import java.util.Date;
 public class CourseOff implements Serializable {
     private static final long serialVersionUID = -916357110051689488L;
     @Id
-    @GeneratedValue(generator = "jpa-assigned")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid")
     @Column(length = 32)
     private String id;
     private String name;
