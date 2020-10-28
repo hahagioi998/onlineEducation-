@@ -120,11 +120,8 @@ public class AuthController implements AuthControllerApi {
         Map<String, String> map = CookieUtil.readCookie(request, "uid");
         if(map!=null && map.get("uid")!=null){
             String uid = map.get("uid");
-            System.out.println(uid);
             return uid;
         }
         return null;
     }
-
-
 }

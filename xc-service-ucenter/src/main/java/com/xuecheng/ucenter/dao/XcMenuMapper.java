@@ -1,0 +1,12 @@
+package com.xuecheng.ucenter.dao;
+
+import com.hnguigu.domain.ucenter.XcMenu;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+@Mapper
+public interface XcMenuMapper {
+    //根据用户id查询用户权限
+    public List<XcMenu> selectPermissionByUserId(String userid);
+}
