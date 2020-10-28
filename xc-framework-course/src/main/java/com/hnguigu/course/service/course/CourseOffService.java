@@ -6,8 +6,8 @@ import com.hnguigu.domain.course.CoursePic;
 
 import java.util.Date;
 
-public interface CourseOffServcie {
+public interface CourseOffService {
 
-    //添加数据
-    void addCourseOff(CourseBase courseBase, CourseMarket courseMarket, Date date, CoursePic coursePic);
+    //添加off
+    boolean addCourseOff(CourseBase courseBase, CourseMarket courseMarket, Date date, CoursePic coursePic,String json);
 }

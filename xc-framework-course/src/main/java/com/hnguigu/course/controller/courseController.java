@@ -1,6 +1,8 @@
 package com.hnguigu.course.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.hnguigu.api.course.CourseControllerApi;
 import com.hnguigu.common.model.response.QueryResponseResult;
 import com.hnguigu.common.model.response.QueryResult;
@@ -16,14 +18,19 @@ import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
 import com.hnguigu.domain.course.CoursePic;
 import com.hnguigu.domain.course.Teachplan;
+import com.hnguigu.course.service.course.*;
+import com.hnguigu.domain.course.*;
 import com.hnguigu.domain.course.ext.CourseInfo;
+import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.request.CourseListRequest;
 import com.hnguigu.domain.course.response.AddCourseResult;
+import com.hnguigu.domain.course.response.CoursePublishResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
 import com.hnguigu.domain.filesystem.FileSystem;
 import com.hnguigu.utils.XcOauth2Util;
 import io.minio.MinioClient;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -54,10 +61,15 @@ public class courseController extends BaseController implements CourseController
 
     @Autowired
     CourseService courseService;
+    private CourseOffService courseOffService;
 
+    @GetMapping("/coursebase/list/{page}/{size}")
+    @ResponseBody
     @Override
-    public QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size, String userId) {
-        return null;
+    public QueryResult<CourseInfo> queryPageCourseBase(@PathVariable Integer page,@PathVariable Integer size,@Param(value = "userId") String userId) {
+        //查询course_base表数据
+        QueryResult<CourseInfo> queryResult = courseBaseService.queryPageCourseBase(page,size,userId);
+        return queryResult;
     }
 
     @PostMapping("/coursebase/add")
@@ -89,8 +101,19 @@ public class courseController extends BaseController implements CourseController
             if(endTime!=null){
                 Date date = new Date();
                 if(!date.before(endTime)){
-                    //超过结束时间则删除改营销计划，并且向course_off表添加一条已经过期的数据，方便查看
-                    boolean b = courseMarketService.deleteCourseMarket(courseMarket);
+                    //向off表中添加一条数据
+                    //需要base表数据根据id查询，需要market表（上面已有） 需要过期时间 date 需要课程图片(根据课程id查询) 需要课程计划（根据课程id查询课程计划并且转换成字符串）
+                    CourseBase courseBase = courseBaseService.queryCourseBaseByid(courseid);
+                    CoursePic coursePic = coursePicService.findCoursePicBycourseId(courseid);
+                    TeachplanNode teachplanNode = teachplanService.queryTeachplanBycourseid(courseid);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(teachplanNode);
+                    //获取上面所有数据开始添加
+                    boolean b1 = courseOffService.addCourseOff(courseBase, courseMarket, date, coursePic, json);
+                    if(b1==true){
+                        //超过结束时间则删除改营销计划，并且向course_off表添加一条已经过期的数据，方便查看
+                        boolean b = courseMarketService.deleteCourseMarket(courseMarket);
+                    }
                 }
             }
         }
@@ -212,14 +235,39 @@ public class courseController extends BaseController implements CourseController
 
     @Override
     @GetMapping("/coursebase/list/{page}/{size}")
-    public QueryResponseResult<CourseInfo> findCourseList(@PathVariable("page") int page,@PathVariable("size") int size, CourseListRequest courseListRequest) {
-        //获取当前用户信息
-        XcOauth2Util xcOauth2Util = new XcOauth2Util();
-        XcOauth2Util.UserJwt userJwt = xcOauth2Util.getUserJwtFromHeader(request);
-        //当前所属单位的id
-        String company_id = userJwt.getCompanyId();
-        QueryResponseResult<CourseInfo> courseList = courseService.findCourseList(company_id, page, size, courseListRequest);
-        return courseList;
+    public QueryResponseResult<CourseInfo> findCourseList(@PathVariable("page") int page,@PathVariable("size") int size, CourseListRequest courseListRequest){
+            //获取当前用户信息
+            XcOauth2Util xcOauth2Util = new XcOauth2Util();
+            XcOauth2Util.UserJwt userJwt = xcOauth2Util.getUserJwtFromHeader(request);
+            //当前所属单位的id
+            String company_id = userJwt.getCompanyId();
+            QueryResponseResult<CourseInfo> courseList = courseService.findCourseList(company_id, page, size, courseListRequest);
+            return courseList;
+    }
+    //删除filesystem表的数据//根据地址删除
+    @DeleteMapping("/Deletefilesystem")
+    @ResponseBody
+    public void deletefilesystem (@RequestParam(value = "pic") String pic) {
+        filesystemRepositor.deleteById(pic);
+    }
+    @Override
+    @PostMapping("savemedia")
+    public ResponseResult saveMedia(@RequestBody TeachplanMedia teachplanMedia) {
+        return teachplanService.saveMdia(teachplanMedia);
+    }
+
+    @Override
+    @ResponseBody
+    @GetMapping("/courseview/{id}")
+    public CourseView courseview(@PathVariable("id") String id) {
+        return courseBaseService.getCoruseView(id);
+    }
+
+    @Override
+    @ResponseBody
+    @PostMapping("/previwe/{id}")
+    public CoursePublishResult preview(@PathVariable String id) {
+        return courseBaseService.preview(id);
     }
 }
 

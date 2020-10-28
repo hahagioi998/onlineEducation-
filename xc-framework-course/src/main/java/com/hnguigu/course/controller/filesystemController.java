@@ -106,7 +106,12 @@ public class filesystemController implements FilesystemControllerApi {
             InputStream is = multipartFile.getInputStream(); //得到文件流
             String fileName = multipartFile.getOriginalFilename(); //文件名
             String contentType = multipartFile.getContentType();  //类型
+<<<<<<< HEAD
             if(!client.bucketExists(bucketName)){
+=======
+            boolean b = client.bucketExists(bucketName);
+            if(!b){
+>>>>>>> origin/master
                 //创建桶
                 client.makeBucket(bucketName);
                 //给同设置策略（读写权限）

@@ -14,19 +14,18 @@ import com.hnguigu.utils.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin
 public class AuthController implements AuthControllerApi {
     @Value("${auth.clientId}")
     String clientId;
@@ -58,6 +57,7 @@ public class AuthController implements AuthControllerApi {
         AuthToken authToken =  authService.login(username,password,clientId,clientSecret);
         //用户身份令牌
         String access_token = authToken.getAccess_token();
+
         //将令牌存储到cookie
         this.saveCookie(access_token);
 
@@ -103,7 +103,6 @@ public class AuthController implements AuthControllerApi {
         if(uid == null){
             return new JwtResult(CommonCode.FAIL,null);
         }
-
         //拿身份令牌从redis中查询jwt令牌
         AuthToken userToken = authService.getUserToken(uid);
         if(userToken!=null){
@@ -113,6 +112,26 @@ public class AuthController implements AuthControllerApi {
         }
         return null;
     }
+
+
+    @Override
+    @GetMapping("/userjwtbyid/{uid}")
+    public JwtResult userjwtbyid(@PathVariable String uid) {
+        if(uid == null){
+            return new JwtResult(CommonCode.FAIL,null);
+        }
+        //拿身份令牌从redis中查询jwt令牌
+        AuthToken userToken = authService.getUserToken(uid);
+        if(userToken!=null){
+            //将jwt令牌返回给用户
+            String jwt_token = userToken.getJwt_token();
+            return new JwtResult(CommonCode.SUCCESS,jwt_token);
+        }
+        return null;
+    }
+
+
+
 
     //取出cookie中的身份令牌
     private String getTokenFormCookie(){

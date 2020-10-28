@@ -17,6 +17,11 @@ public class CmsConfigController implements CmsConfigControllerApi {
     @Autowired
     private PageService pageService;
 
+    /**
+     * 获取模型
+     * @param id
+     * @return
+     */
     @GetMapping("/getmodel/{id}")
     @Override
     public CmsConfig getmodel(@PathVariable("id") String id) {
