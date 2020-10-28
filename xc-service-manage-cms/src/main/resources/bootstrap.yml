@@ -12,3 +12,6 @@ spring:
       discovery:
         enabled: true
         server-addr: http://127.0.0.1:8848
+  datasource:
+    hikari:
+      connection-timeout: 60000

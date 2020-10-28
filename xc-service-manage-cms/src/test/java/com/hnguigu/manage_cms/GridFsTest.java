@@ -39,10 +39,10 @@ public class GridFsTest {
     @Test
     public void testStore() throws FileNotFoundException {
         //定义file
-        File file =new File("D:\\softwareFactory\\在线教育平台\\09-课程预览 Eureka Feign\\资料\\课程详情页面模板\\course.ftl");
+        File file =new File("F:\\Online-education\\fdfdfvdsf.ftl");
         //定义fileInputStream
         FileInputStream fileInputStream = new FileInputStream(file);
-        ObjectId objectId = gridFsTemplate.store(fileInputStream, "D:\\softwareFactory\\在线教育平台\\09-课程预览 Eureka Feign\\资料\\课程详情页面模板\\course.ftl");
+        ObjectId objectId = gridFsTemplate.store(fileInputStream, "F:\\Online-education\\fdfdfvdsf.ftl");
 
         System.out.println(objectId);
     }

@@ -9,6 +9,7 @@ import com.hnguigu.domain.cms.CmsPage;
 import com.hnguigu.domain.cms.CmsPageParam;
 import com.hnguigu.domain.cms.request.QueryPageRequest;
 import com.hnguigu.domain.cms.response.CmsPageResult;
+import com.hnguigu.domain.cms.response.CmsPostPageResult;
 import com.hnguigu.manage_cms.dao.CmsPageRepository;
 import com.hnguigu.manage_cms.service.PageService;
 import io.swagger.annotations.Authorization;
@@ -114,7 +115,17 @@ public class CmsPageController implements CmsPageControllerApi {
 
     @Override
     @PostMapping("/save")
+    @ResponseBody
     public CmsPageResult save(@RequestBody  CmsPage cmsPage) {
         return pageService.save(cmsPage);
     }
+
+    @Override
+    @ResponseBody
+    @PostMapping("/postPageQuick")
+    public CmsPostPageResult postPageQuick(@RequestBody CmsPage cmsPage) {
+        return pageService.postPageQuick(cmsPage);
+    }
+
+
 }

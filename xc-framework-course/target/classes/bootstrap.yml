@@ -12,12 +12,12 @@ spring:
       discovery:
         enabled: true
         server-addr: http://127.0.0.1:8848
-<<<<<<< HEAD:xc-framework-course/target/classes/bootstrap.yml
+<<<<<<< HEAD:xc-framework-course/src/main/resources/bootstrap.yml
 =======
     loadbalancer:
       ribbon:
         enable: true
->>>>>>> origin/master:xc-framework-course/target/classes/application.yml
+>>>>>>> origin/master:xc-framework-course/src/main/resources/application.yml
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -37,9 +37,10 @@ spring:
 pagehelper:
   helper-dialect: mysql
 course‐publish:
-  siteId: 5f90ebfc697c0243889712f0
-  templateId: 5f90e271697c0275dcd066cb
+  siteId: 5b30cba5f58b4411fc6cb1e5
+  templateId: 5aec5dd70e661808240ab7a6
   previewUrl: http://www.xuecheng.com/cms/preview/
   pageWebPath: /course/detail/
-  pagePhysicalPath: /course/detail/
+  pagePhysicalPath: /course/detail
   dataUrlPre: http://localhost:2323/course/courseview/
+

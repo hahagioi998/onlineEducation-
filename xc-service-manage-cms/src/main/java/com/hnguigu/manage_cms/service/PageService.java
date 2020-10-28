@@ -13,6 +13,7 @@ import com.hnguigu.domain.cms.CmsTemplate;
 import com.hnguigu.domain.cms.request.QueryPageRequest;
 import com.hnguigu.domain.cms.response.CmsCode;
 import com.hnguigu.domain.cms.response.CmsPageResult;
+import com.hnguigu.domain.cms.response.CmsPostPageResult;
 import com.hnguigu.manage_cms.config.RabbitmqConfig;
 import com.hnguigu.manage_cms.dao.CmsConfigRepository;
 import com.hnguigu.manage_cms.dao.CmsPageRepository;
@@ -118,10 +119,10 @@ public class PageService {
         if (cm==null){
             cmsPage.setPageId(null);
             CmsPage save = cmsPageRepository.save(cmsPage);
-            return new CmsPageResult(CommonCode.SUCCESS,cmsPage);
+            return new CmsPageResult(CommonCode.SUCCESS,save);
         }
 
-        return new CmsPageResult(CommonCode.SUCCESS,null);
+        return new CmsPageResult(CommonCode.SUCCESS,cm);
     }
 
     /**
@@ -336,5 +337,42 @@ public class PageService {
                return  this.updatePage(byPageNameAndSiteIdAndPageWebPath.getPageId(),cmsPage);
         }
         return this.addPage(cmsPage);
+    }
+
+    //一键发布页面
+    public CmsPostPageResult postPageQuick(CmsPage cmsPage) {
+        //将页面的信息保存在cms_page集合中
+        CmsPageResult save = this.addPage(cmsPage);
+        if(!save.isSuccess()){
+            ExceptionCast.cast(CommonCode.FAIL);
+        }
+
+        //通过if后 拿到页面的id
+        CmsPage cmsPageSave = save.getCmsPage();
+        String pageId = cmsPageSave.getPageId();
+
+        //执行页面发布(静态化、保存GridFS，向MQ发送消息)
+        ResponseResult post = this.post(pageId);
+        if(!post.isSuccess()){
+            ExceptionCast.cast(CommonCode.FAIL);
+        }
+
+        //拼接页面URL
+        //取出站点id
+        String siteId = cmsPageSave.getSiteId();
+        CmsSite cmsSite = this.findCmsSiteById(siteId);
+
+        //拼装URL
+        String pageUrl = cmsSite.getSiteDomain() + cmsSite.getSiteWebPath() + cmsPageSave.getPageWebPath() + cmsPageSave.getPageName();
+        return new CmsPostPageResult(CommonCode.SUCCESS,pageUrl);
+    }
+
+    //根据id查询站点信息
+    public CmsSite findCmsSiteById(String siteId){
+        Optional<CmsSite> optional = cmsSiteRepository.findById(siteId);
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        return null;
     }
 }

@@ -1,32 +1,18 @@
 package com.hnguigu.api.course;
 
-import com.hnguigu.common.model.response.QueryResponseResult;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
-import com.hnguigu.domain.course.CoursePic;
 import com.hnguigu.domain.course.Teachplan;
 import com.hnguigu.domain.course.TeachplanMedia;
 import com.hnguigu.domain.course.ext.CourseInfo;
 import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.ext.TeachplanNode;
-import com.hnguigu.domain.course.request.CourseListRequest;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.CoursePublishResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
-<<<<<<< HEAD
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-=======
-<<<<<<< HEAD
-import com.hnguigu.domain.ucenter.XcTeacher;
-=======
-import io.swagger.annotations.ApiOperation;
->>>>>>> origin/master
->>>>>>> origin/master
 
 import java.util.List;
 
@@ -62,30 +48,6 @@ public interface CourseControllerApi {
     //删除课程计划
     DeleteCourseResult  deleteTeachplan(TeachplanNode teachplanNode);
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> origin/master
-    //查询修改需要的teachplan
-    Teachplan TeachplanQueryByid(String id);
-
-    //修改teachplan
-    AddCourseResult updateTeachplan(Teachplan teachplan);
-
-    //图片地址保存到sql
-    ResponseResult addCoursePic(String courseId,String pic);
-
-    //根据id查询图片地址
-    CoursePic findCoursePic(String CourseId);
-    //删除上传图片
-    ResponseResult DeleteCoursePicBycourseId(String courseId);
-
-<<<<<<< HEAD
-    //课程查询
-    @ApiOperation("课程查询")
-    public QueryResponseResult<CourseInfo> findCourseList(int page, int size, CourseListRequest courseListRequest);
-=======
-=======
     @ApiOperation("保存课程计划与媒资文件关联")
     public  ResponseResult saveMedia(TeachplanMedia teachplanMedia);
 
@@ -94,6 +56,9 @@ public interface CourseControllerApi {
 
     @ApiOperation("预览课程")
     public CoursePublishResult preview(String id);
->>>>>>> origin/master
->>>>>>> origin/master
+
+    @ApiOperation("课程发布")
+    public CoursePublishResult prelish(String id);
+
+
 }

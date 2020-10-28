@@ -54,7 +54,7 @@ public class PageService {
         String sitePhysicalPath = cmsSite.getSitePhysicalPath();
 
         String pagePath=sitePhysicalPath+cmsPage.getPagePhysicalPath()+"/"+cmsPage.getPageName();
-
+        System.out.println(pagePath);
         File file=new File(sitePhysicalPath+cmsPage.getPagePhysicalPath());
 
         file.mkdirs();

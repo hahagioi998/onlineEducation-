@@ -174,7 +174,6 @@ public class courseController extends BaseController implements CourseController
 
     @GetMapping("/teachplan/TeachplanByid/{id}")
     @ResponseBody
-    @Override
     public Teachplan TeachplanQueryByid(@PathVariable  String id) {
         Teachplan teachplanByid = teachplanService.findTeachplanByid(id);
         return teachplanByid;
@@ -182,13 +181,11 @@ public class courseController extends BaseController implements CourseController
 
     @PutMapping("/teachplan/update")
     @ResponseBody
-    @Override
     public AddCourseResult updateTeachplan(@RequestBody Teachplan teachplan) {
         AddCourseResult addCourseResult = teachplanService.UpdateTeachplan(teachplan);
         return addCourseResult;
     }
 
-    @Override
     @PostMapping("/coursepic/add")
     @ResponseBody
     public ResponseResult addCoursePic(@RequestParam("courseId") String courseId, @RequestParam("pic") String pic) {
@@ -201,7 +198,6 @@ public class courseController extends BaseController implements CourseController
     @PreAuthorize("hasAuthority('course_pic_list')")
     @GetMapping("/coursepic/list/{courseId}")
     @ResponseBody
-    @Override
     public CoursePic findCoursePic(@PathVariable String courseId) {
         CoursePic coursePicBycourseId = coursePicService.findCoursePicBycourseId(courseId);
         return coursePicBycourseId;
@@ -209,7 +205,6 @@ public class courseController extends BaseController implements CourseController
 
     @DeleteMapping("/coursepic/delete")
     @ResponseBody
-    @Override
     public ResponseResult DeleteCoursePicBycourseId(@RequestParam(value = "courseId") String courseId) {
          String url = "http://127.0.0.1:9000";  //minio服务的IP端口
          String accessKey = "minioadmin";
@@ -233,7 +228,6 @@ public class courseController extends BaseController implements CourseController
         return responseResult;
     }
 
-    @Override
     @GetMapping("/coursebase/list/{page}/{size}")
     public QueryResponseResult<CourseInfo> findCourseList(@PathVariable("page") int page,@PathVariable("size") int size, CourseListRequest courseListRequest){
             //获取当前用户信息
@@ -268,6 +262,13 @@ public class courseController extends BaseController implements CourseController
     @PostMapping("/previwe/{id}")
     public CoursePublishResult preview(@PathVariable String id) {
         return courseBaseService.preview(id);
+    }
+
+    @Override
+    @ResponseBody
+    @PostMapping("/publish/{id}")
+    public CoursePublishResult prelish(@PathVariable String id) {
+        return courseBaseService.publish(id);
     }
 }
 
