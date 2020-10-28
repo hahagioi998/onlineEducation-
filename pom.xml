@@ -26,6 +26,7 @@
         <module>xc-service-manage-order</module>
         <module>xc-framework-search</module>
         <module>xc-service-gateway</module>
+        <module>xc-service-learning</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

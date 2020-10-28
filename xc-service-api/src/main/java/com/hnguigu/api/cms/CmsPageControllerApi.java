@@ -34,13 +34,8 @@ public interface CmsPageControllerApi {
     String getHtml(String id);
 
     //发布页面
-<<<<<<< HEAD
-    ResponseResult  postPage(String id);
-}
-=======
-    String postPage(String id);
+    ResponseResult postPage(String id);
 
     //保存页面
     CmsPageResult save(CmsPage cmsPage);
 }
->>>>>>> origin/master
