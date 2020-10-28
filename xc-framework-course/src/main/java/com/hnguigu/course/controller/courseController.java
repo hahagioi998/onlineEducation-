@@ -158,7 +158,7 @@ public class courseController implements CourseControllerApi {
 
     @Override
     @ResponseBody
-    @PostMapping("/previwe/{id}")
+    @PostMapping("/preview/{id}")
     public CoursePublishResult preview(@PathVariable String id) {
         return courseBaseService.preview(id);
     }

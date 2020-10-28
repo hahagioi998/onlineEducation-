@@ -7,10 +7,9 @@ import com.hnguigu.domain.course.CoursePub;
 import com.hnguigu.domain.search.CourseSearchParam;
 import com.hnguigu.search.service.impl.EsCourseServiceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author Administrator
@@ -28,4 +27,10 @@ public class EsCourseController implements EsCourseControllerApi {
         return esCourseService.list(page,size,courseSearchParam);
     }
 
+    @Override
+    @ResponseBody
+    @GetMapping("/getall/{id}")
+    public Map<String, CoursePub> getAll(@PathVariable String id) {
+        return esCourseService.getAll(id);
+    }
 }

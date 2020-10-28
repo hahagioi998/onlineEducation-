@@ -13,6 +13,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -176,5 +178,54 @@ public class EsCourseServiceimpl {
         QueryResponseResult<CoursePub> queryResponseResult = new QueryResponseResult<CoursePub>(CommonCode.SUCCESS,queryResult);
 
         return queryResponseResult;
+    }
+     //使用es的客户端向es请求查询索引
+    public Map<String, CoursePub> getAll(String id) {
+        //定义一个搜索请求对象
+        SearchRequest searchRequest=new SearchRequest(index);
+        //指定type
+        searchRequest.types(type);
+        //定义searchSourceBilder
+        SearchSourceBuilder searchSourceBuilder=new SearchSourceBuilder();
+
+
+        //设置使用termQuery
+        searchSourceBuilder.query(QueryBuilders.termQuery("id",id));
+        //过滤源字段，不用设置源字段，取出所有字段
+//        searchSourceBuilder.fetchSource();
+        searchRequest.source(searchSourceBuilder);
+        Map<String,CoursePub> map=new HashMap<>();
+        try {
+            SearchResponse search = restHighLevelClient.search(searchRequest);
+            SearchHits hits = search.getHits();
+            SearchHit[] hits1 = hits.getHits();
+
+            for (SearchHit hit:hits1){
+                //获取源文档的内容
+                Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+                String courseId = (String) sourceAsMap.get("id");
+                String name = (String) sourceAsMap.get("name");
+                String grade = (String) sourceAsMap.get("grade");
+                String charge = (String) sourceAsMap.get("charge");
+                String pic = (String) sourceAsMap.get("pic");
+                String description = (String) sourceAsMap.get("description");
+                String teachplan = (String) sourceAsMap.get("teachplan");
+
+                CoursePub coursePub=new CoursePub();
+                coursePub.setId(courseId);
+                coursePub.setName(name);
+                coursePub.setPic(pic);
+                coursePub.setGrade(grade);
+                coursePub.setTeachplan(teachplan);
+                coursePub.setDescription(description);
+                map.put(courseId,coursePub);
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return map;
     }
 }
