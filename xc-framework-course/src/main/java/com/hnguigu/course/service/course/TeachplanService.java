@@ -24,4 +24,7 @@ public interface TeachplanService {
     Teachplan findTeachplanByid(String id);
 
     ResponseResult saveMdia(TeachplanMedia teachplanMedia);
+
+    //添加teachplan数据
+    AddCourseResult UpdateTeachplan(Teachplan teachplan);
 }

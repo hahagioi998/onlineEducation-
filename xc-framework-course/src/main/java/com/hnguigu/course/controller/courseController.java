@@ -1,13 +1,13 @@
 package com.hnguigu.course.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.hnguigu.api.course.CourseControllerApi;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
-import com.hnguigu.course.service.course.CourseBaseService;
-import com.hnguigu.course.service.course.CourseMarketService;
-import com.hnguigu.course.service.course.CoursePicService;
-import com.hnguigu.course.service.course.TeachplanService;
+import com.hnguigu.course.repository.FilesystemRepositor;
+import com.hnguigu.course.service.course.*;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
 import com.hnguigu.domain.course.CoursePic;
@@ -16,6 +16,9 @@ import com.hnguigu.domain.course.ext.CourseInfo;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
+import com.hnguigu.domain.filesystem.FileSystem;
+import com.hnguigu.domain.ucenter.XcTeacher;
+import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @Controller
@@ -43,12 +47,18 @@ public class courseController implements CourseControllerApi {
     @Autowired
     private CoursePicService coursePicService;
 
+    @Autowired
+    private FilesystemRepositor filesystemRepositor;
+
+    @Autowired
+    private CourseOffService courseOffService;
+
     @GetMapping("/coursebase/list/{page}/{size}")
     @ResponseBody
     @Override
     public QueryResult<CourseInfo> queryPageCourseBase(@PathVariable Integer page,@PathVariable Integer size,@Param(value = "userId") String userId) {
         //查询course_base表数据
-        QueryResult<CourseInfo> queryResult = courseBaseService.queryPageCourseBase(page,size);
+        QueryResult<CourseInfo> queryResult = courseBaseService.queryPageCourseBase(page,size,userId);
         return queryResult;
     }
 
@@ -81,8 +91,19 @@ public class courseController implements CourseControllerApi {
             if(endTime!=null){
                 Date date = new Date();
                 if(!date.before(endTime)){
-                    //超过结束时间则删除改营销计划，并且向course_off表添加一条已经过期的数据，方便查看
-                    boolean b = courseMarketService.deleteCourseMarket(courseMarket);
+                    //向off表中添加一条数据
+                    //需要base表数据根据id查询，需要market表（上面已有） 需要过期时间 date 需要课程图片(根据课程id查询) 需要课程计划（根据课程id查询课程计划并且转换成字符串）
+                    CourseBase courseBase = courseBaseService.queryCourseBaseByid(courseid);
+                    CoursePic coursePic = coursePicService.findCoursePicBycourseId(courseid);
+                    TeachplanNode teachplanNode = teachplanService.queryTeachplanBycourseid(courseid);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(teachplanNode);
+                    //获取上面所有数据开始添加
+                    boolean b1 = courseOffService.addCourseOff(courseBase, courseMarket, date, coursePic, json);
+                    if(b1==true){
+                        //超过结束时间则删除改营销计划，并且向course_off表添加一条已经过期的数据，方便查看
+                        boolean b = courseMarketService.deleteCourseMarket(courseMarket);
+                    }
                 }
             }
         }
@@ -96,9 +117,6 @@ public class courseController implements CourseControllerApi {
         ResponseResult responseResult = courseMarketService.addAndupdate(courseMarket);
         return responseResult;
     }
-
-
-
 
     @PutMapping("/coursebase/updateCourseBase")
     @ResponseBody
@@ -141,5 +159,70 @@ public class courseController implements CourseControllerApi {
         return deleteCourseResult;
     }
 
+    @GetMapping("/teachplan/TeachplanByid/{id}")
+    @ResponseBody
+    @Override
+    public Teachplan TeachplanQueryByid(@PathVariable  String id) {
+        Teachplan teachplanByid = teachplanService.findTeachplanByid(id);
+        return teachplanByid;
+    }
+
+    @PutMapping("/teachplan/update")
+    @ResponseBody
+    @Override
+    public AddCourseResult updateTeachplan(@RequestBody Teachplan teachplan) {
+        AddCourseResult addCourseResult = teachplanService.UpdateTeachplan(teachplan);
+        return addCourseResult;
+    }
+
+    @Override
+    @PostMapping("/coursepic/add")
+    @ResponseBody
+    public ResponseResult addCoursePic(@RequestParam("courseId") String courseId, @RequestParam("pic") String pic) {
+        ResponseResult responseResult = coursePicService.addCoursepic(courseId, pic);
+        return responseResult;
+        //保存课程图片 return courseService.saveCoursePic(courseId,pic);
+    }
+
+    @GetMapping("/coursepic/list/{courseId}")
+    @ResponseBody
+    @Override
+    public CoursePic findCoursePic(@PathVariable String courseId) {
+        CoursePic coursePicBycourseId = coursePicService.findCoursePicBycourseId(courseId);
+        return coursePicBycourseId;
+    }
+
+    @DeleteMapping("/coursepic/delete")
+    @ResponseBody
+    @Override
+    public ResponseResult DeleteCoursePicBycourseId(@RequestParam(value = "courseId") String courseId) {
+         String url = "http://127.0.0.1:9000";  //minio服务的IP端口
+         String accessKey = "minioadmin";
+         String secretKey = "minioadmin";
+        try {
+            MinioClient minioClient = new MinioClient(url,accessKey,secretKey);
+            CoursePic pic = coursePicService.findCoursePicBycourseId(courseId);
+            String pic1 = pic.getPic();
+            Optional<FileSystem> system = filesystemRepositor.findById(pic1);
+            FileSystem fileSystem = null;
+            if(system.isPresent()){
+                fileSystem = system.get();
+            }
+            if(fileSystem!=null){
+                minioClient.removeObject("course",fileSystem.getFileName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ResponseResult responseResult = coursePicService.deleteCoursePic(courseId);
+        return responseResult;
+    }
+
+    //删除filesystem表的数据//根据地址删除
+    @DeleteMapping("/Deletefilesystem")
+    @ResponseBody
+    public void deletefilesystem (@RequestParam(value = "pic") String pic){
+        filesystemRepositor.deleteById(pic);
+    }
 }
 

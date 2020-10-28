@@ -40,9 +40,20 @@ public class CourseBaseServiceimpl implements CourseBaseService {
     private TeachplanRepository teachplanRepository;
 
     @Override
-    public QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size) {
+    public QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size,String userId) {
         PageRequest pageRequest = PageRequest.of(page-1,size);
-        Page<CourseBase> page1 = courseBaseRepository.findAll(pageRequest);
+        Specification<CourseBase> specification1 = new Specification<CourseBase>() {
+            @Override
+            public Predicate toPredicate(Root<CourseBase> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                Predicate predicate = null;
+                if(userId!=null){
+                    Predicate a1 = criteriaBuilder.equal(root.get("userId"),userId);
+                    predicate =criteriaBuilder.and(a1);
+                }
+                return predicate;
+            }
+        };
+        Page<CourseBase> page1 = courseBaseRepository.findAll(specification1,pageRequest);
         List<CourseBase> queryResult1 = page1.getContent();
         List<CourseInfo> list = new ArrayList<>();
         for (CourseBase courseBase : queryResult1) {

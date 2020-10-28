@@ -70,11 +70,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserJwt userDetails = new UserJwt(username,
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(user_permission_string));
-        userDetails.setId(userext.getId());
+        userDetails.setId(userext.getId()); //id
         userDetails.setUtype(userext.getUtype());//用户类型
         userDetails.setCompanyId(userext.getCompanyId());//所属企业
         userDetails.setName(userext.getName());//用户名称
         userDetails.setUserpic(userext.getUserpic());//用户头像
+//        userDetails.setUserpic(userext.getId());//用户头像
        /* UserDetails userDetails = new org.springframework.security.core.userdetails.User(username,
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(""));*/

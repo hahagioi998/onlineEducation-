@@ -9,7 +9,7 @@ import com.hnguigu.domain.course.response.AddCourseResult;
 public interface CourseBaseService {
 
     //查询课程基本信息并且分页
-    QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size);
+    QueryResult<CourseInfo> queryPageCourseBase(Integer page, Integer size,String userId);
 
     //添加CourseBase数据
     AddCourseResult addCourseBase(CourseBase courseBase);

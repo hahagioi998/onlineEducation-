@@ -4,11 +4,13 @@ import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
+import com.hnguigu.domain.course.CoursePic;
 import com.hnguigu.domain.course.Teachplan;
 import com.hnguigu.domain.course.ext.CourseInfo;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
+import com.hnguigu.domain.ucenter.XcTeacher;
 
 import java.util.List;
 
@@ -43,5 +45,19 @@ public interface CourseControllerApi {
 
     //删除课程计划
     DeleteCourseResult  deleteTeachplan(TeachplanNode teachplanNode);
+
+    //查询修改需要的teachplan
+    Teachplan TeachplanQueryByid(String id);
+
+    //修改teachplan
+    AddCourseResult updateTeachplan(Teachplan teachplan);
+
+    //图片地址保存到sql
+    ResponseResult addCoursePic(String courseId,String pic);
+
+    //根据id查询图片地址
+    CoursePic findCoursePic(String CourseId);
+    //删除上传图片
+    ResponseResult DeleteCoursePicBycourseId(String courseId);
 
 }

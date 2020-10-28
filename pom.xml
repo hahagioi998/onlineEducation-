@@ -23,6 +23,7 @@
         <module>xc-service-ucenter-auth</module>
         <module>xc-service-dictionary</module>
         <module>xc-service-manage-cms-client</module>
+        <module>xc-service-manage-teacher</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

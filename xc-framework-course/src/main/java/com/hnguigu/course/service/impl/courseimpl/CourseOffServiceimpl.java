@@ -1,27 +1,29 @@
 package com.hnguigu.course.service.impl.courseimpl;
 
 import com.hnguigu.course.repository.CourseOffRepository;
-import com.hnguigu.course.service.course.CourseOffServcie;
+import com.hnguigu.course.service.course.CourseOffService;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.CourseMarket;
 import com.hnguigu.domain.course.CourseOff;
 import com.hnguigu.domain.course.CoursePic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-public class CourseOffServiceimpl implements CourseOffServcie {
+@Service
+public class CourseOffServiceimpl implements CourseOffService {
 
     @Autowired
     private CourseOffRepository courseOffRepository;
 
     @Override
-    public void addCourseOff(CourseBase courseBase, CourseMarket courseMarket, Date date, CoursePic coursePic) {
+    public boolean addCourseOff(CourseBase courseBase, CourseMarket courseMarket, Date date, CoursePic coursePic, String json) {
         CourseOff courseOff = new CourseOff();
         courseOff.setName(courseBase.getName());
         courseOff.setUsers(courseBase.getUsers());
         courseOff.setMt(courseBase.getMt());
-        courseOff.setSt(courseOff.getSt());
+        courseOff.setSt(courseBase.getSt());
         courseOff.setGrade(courseBase.getGrade());
         courseOff.setStudymodel(courseBase.getStudymodel());
         courseOff.setDescription(courseBase.getDescription());
@@ -31,11 +33,15 @@ public class CourseOffServiceimpl implements CourseOffServcie {
         courseOff.setQq(courseMarket.getQq());
         courseOff.setPrice(courseMarket.getPrice());
         courseOff.setPrice_old(courseMarket.getPrice_old());
-        courseOff.setTeachplan(null);
+        courseOff.setTeachplan(json);
         courseOff.setExpires(date);
-        if(coursePic!=null){
+        if (coursePic != null) {
             courseOff.setPic(coursePic.getPic());
         }
-        courseOffRepository.save(courseOff);
+        CourseOff save = courseOffRepository.save(courseOff);
+        if (save != null) {
+            return true;
+        }
+        return false;
     }
 }
