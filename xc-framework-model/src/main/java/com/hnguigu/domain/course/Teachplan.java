@@ -30,4 +30,8 @@ public class Teachplan implements Serializable {
     private Double timelength;
     private String trylearn;
 
+    @OneToOne
+    @JoinColumn(name="id",referencedColumnName = "teachplan_id")
+    private TeachplanMedia teachplanMedia;
+
 }

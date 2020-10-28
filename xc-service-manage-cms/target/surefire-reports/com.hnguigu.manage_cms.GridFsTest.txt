@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.hnguigu.manage_cms.GridFsTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.033 sec <<< FAILURE!
-queryFile(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.013 sec  <<< ERROR!
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.093 sec <<< FAILURE!
+queryFile(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.064 sec  <<< ERROR!
 java.lang.NullPointerException
 	at com.hnguigu.manage_cms.GridFsTest.queryFile(GridFsTest.java:56)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -43,7 +43,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testStore(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.004 sec  <<< ERROR!
+testStore(com.hnguigu.manage_cms.GridFsTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.io.FileNotFoundException: c:\course.ftl (系统找不到指定的文件。)
 	at java.io.FileInputStream.open0(Native Method)
 	at java.io.FileInputStream.open(FileInputStream.java:195)

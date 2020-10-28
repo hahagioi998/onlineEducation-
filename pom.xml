@@ -24,6 +24,8 @@
         <module>xc-service-dictionary</module>
         <module>xc-service-manage-cms-client</module>
         <module>xc-service-manage-order</module>
+        <module>xc-framework-search</module>
+        <module>xc-service-gateway</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -48,7 +50,7 @@
         <fastjson.version>1.2.30</fastjson.version>
         <fastdfs-client-java.version>1.27.0.0</fastdfs-client-java.version>
         <mysql-connector-java.version>8.0.20</mysql-connector-java.version>
-        <elasticsearch.version>6.2.1</elasticsearch.version>
+        <elasticsearch.version>6.5.4</elasticsearch.version>
         <guava.version>24.0-jre</guava.version>
     </properties>
     <!--test-->

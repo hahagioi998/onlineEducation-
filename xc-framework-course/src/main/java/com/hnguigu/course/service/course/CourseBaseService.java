@@ -3,7 +3,9 @@ package com.hnguigu.course.service.course;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.domain.course.CourseBase;
 import com.hnguigu.domain.course.ext.CourseInfo;
+import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.response.AddCourseResult;
+import com.hnguigu.domain.course.response.CoursePublishResult;
 
 
 public interface CourseBaseService {
@@ -19,4 +21,8 @@ public interface CourseBaseService {
 
     //修改CourseBase数据
     AddCourseResult updateCourseBase(CourseBase courseBase);
+
+    CourseView getCoruseView(String id);
+
+    CoursePublishResult preview(String id);
 }

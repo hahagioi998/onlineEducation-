@@ -13,6 +13,8 @@
         <module name="xc-service-ucenter" />
         <module name="xc-framework-common" />
         <module name="xc-framework-utils" />
+        <module name="xc-framework-search" />
+        <module name="xc-service-gateway" />
         <module name="test-freemarker" />
         <module name="xc-service-manage-order" />
         <module name="xc-service-manage-media-processor (1) (com.hnguigu)" />
