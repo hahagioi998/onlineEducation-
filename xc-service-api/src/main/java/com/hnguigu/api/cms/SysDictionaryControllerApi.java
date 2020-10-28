@@ -1,18 +1,27 @@
 package com.hnguigu.api.cms;
 
+import com.hnguigu.common.model.response.CommonCode;
 import com.hnguigu.common.model.response.QueryResponseResult;
+import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.domain.system.SysDictionary;
+import com.hnguigu.domain.system.request.QueryDictionaryRequest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.Optional;
 
 public interface SysDictionaryControllerApi {
     /**
      * 条件分页查询
      * @param page
      * @param size
-     * @param name
+     * @param queryDictionaryRequest
      * @return
      */
-    public QueryResponseResult findDictionary(Integer page, Integer size, String name);
+    public QueryResponseResult findDictionary(Integer page, Integer size, QueryDictionaryRequest queryDictionaryRequest);
 
     /**
      * 根据编号查询数据字典信息

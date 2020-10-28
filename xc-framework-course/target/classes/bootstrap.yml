@@ -12,6 +12,12 @@ spring:
       discovery:
         enabled: true
         server-addr: http://127.0.0.1:8848
+<<<<<<< HEAD:xc-framework-course/target/classes/bootstrap.yml
+=======
+    loadbalancer:
+      ribbon:
+        enable: true
+>>>>>>> origin/master:xc-framework-course/target/classes/application.yml
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -30,3 +36,10 @@ spring:
       minEvictableIdleTimeMillis: 300000  #连接在连接池的最小生存时间（毫秒）
 pagehelper:
   helper-dialect: mysql
+course‐publish:
+  siteId: 5f90ebfc697c0243889712f0
+  templateId: 5f90e271697c0275dcd066cb
+  previewUrl: http://www.xuecheng.com/cms/preview/
+  pageWebPath: /course/detail/
+  pagePhysicalPath: /course/detail/
+  dataUrlPre: http://localhost:2323/course/courseview/

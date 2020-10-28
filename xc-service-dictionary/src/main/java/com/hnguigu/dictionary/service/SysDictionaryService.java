@@ -4,6 +4,8 @@ import com.hnguigu.common.model.response.*;
 import com.hnguigu.dictionary.dao.SysDictionaryRepository;
 import com.hnguigu.domain.system.SysDictionary;
 import com.hnguigu.domain.system.SysDictionaryValue;
+import com.hnguigu.domain.system.request.QueryDictionaryRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.Example;
@@ -24,17 +26,17 @@ public class SysDictionaryService {
      * 条件分页查询
      * @param page
      * @param size
-     * @param name
+     * @param queryDictionaryRequest
      * @return
      */
-    public QueryResponseResult findDictionary(Integer page, Integer size, String name){
-        PageRequest pageRequest = PageRequest.of(page, size);
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("dName", ExampleMatcher.GenericPropertyMatchers.contains());
-
-        SysDictionary sysDictionary=new SysDictionary();
-        sysDictionary.setDName(name);
-
-        Example example=Example.of(sysDictionary,exampleMatcher);
+    public QueryResponseResult findDictionary(Integer page, Integer size, QueryDictionaryRequest queryDictionaryRequest){
+         ExampleMatcher exampleMatcher =ExampleMatcher.matching().withMatcher("dName", ExampleMatcher.GenericPropertyMatchers.contains());
+         SysDictionary sysDictionary=new SysDictionary();
+         if (StringUtils.isNotEmpty(queryDictionaryRequest.getDName())){
+            sysDictionary.setDName(queryDictionaryRequest.getDName());
+         }
+         Example<SysDictionary> example =Example.of(sysDictionary,exampleMatcher);
+        PageRequest pageRequest = PageRequest.of(page-1, size);
 
         Page all = sysDictionaryRepository.findAll(example, pageRequest);
 

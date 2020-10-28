@@ -111,13 +111,16 @@ public class TeachplanServiceimpl implements TeachplanService {
                     zzi.setTrylearn(teachplan.getTrylearn());
                     zzi.setChildren(new ArrayList<TeachplanNode>());
                     list2.add(zzi);
+                    if(teachplan.getTeachplanMedia()!=null){
+                        zzi.setMediaFileoriginalname(teachplan.getTeachplanMedia().getMediaFileOriginalName());
+                    }
                 }
             }
             child.setChildren(list2);
             // list2.clear();
             list2 = new ArrayList<TeachplanNode>();
         }
-        /*nodeList.add(gen);
+        /*nodeList.add(gen);99
         gen1.setChildren(nodeList);*/
         return gen;
     }

@@ -21,10 +21,15 @@ public interface TeachplanService {
 
     DeleteCourseResult deleteTheachplan(TeachplanNode teachplanNode);
 
+    ResponseResult saveMdia(TeachplanMedia teachplanMedia);
+
     Teachplan findTeachplanByid(String id);
 
+<<<<<<< HEAD
     ResponseResult saveMdia(TeachplanMedia teachplanMedia);
 
     //添加teachplan数据
     AddCourseResult UpdateTeachplan(Teachplan teachplan);
+=======
+>>>>>>> origin/master
 }

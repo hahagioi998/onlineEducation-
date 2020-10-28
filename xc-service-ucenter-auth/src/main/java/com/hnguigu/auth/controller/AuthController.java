@@ -55,7 +55,6 @@ public class AuthController implements AuthControllerApi {
 
         //申请令牌
         AuthToken authToken =  authService.login(username,password,clientId,clientSecret);
-
         //用户身份令牌
         String access_token = authToken.getAccess_token();
 
@@ -140,6 +139,7 @@ public class AuthController implements AuthControllerApi {
         Map<String, String> map = CookieUtil.readCookie(request, "uid");
         if(map!=null && map.get("uid")!=null){
             String uid = map.get("uid");
+            System.out.println(uid);
             return uid;
         }
         return null;

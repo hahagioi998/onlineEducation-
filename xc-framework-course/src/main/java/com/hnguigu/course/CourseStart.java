@@ -7,12 +7,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
 
 @SpringBootApplication
 @EntityScan("com.hnguigu.domain.course")
+@EnableDiscoveryClient
+@EnableFeignClients
 @ComponentScan(basePackages = {"com.hnguigu.api"})
 @ComponentScan(basePackages = {"com.hnguigu.course"})
 @PropertySource(value = "classpath:minio.properties")

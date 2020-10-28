@@ -8,13 +8,12 @@ import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
 import com.hnguigu.course.repository.FilesystemRepositor;
 import com.hnguigu.course.service.course.*;
-import com.hnguigu.domain.course.CourseBase;
-import com.hnguigu.domain.course.CourseMarket;
-import com.hnguigu.domain.course.CoursePic;
-import com.hnguigu.domain.course.Teachplan;
+import com.hnguigu.domain.course.*;
 import com.hnguigu.domain.course.ext.CourseInfo;
+import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
+import com.hnguigu.domain.course.response.CoursePublishResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
 import com.hnguigu.domain.filesystem.FileSystem;
 import com.hnguigu.domain.ucenter.XcTeacher;
@@ -221,8 +220,27 @@ public class courseController implements CourseControllerApi {
     //删除filesystem表的数据//根据地址删除
     @DeleteMapping("/Deletefilesystem")
     @ResponseBody
-    public void deletefilesystem (@RequestParam(value = "pic") String pic){
+    public void deletefilesystem (@RequestParam(value = "pic") String pic) {
         filesystemRepositor.deleteById(pic);
+    }
+    @Override
+    @PostMapping("savemedia")
+    public ResponseResult saveMedia(@RequestBody TeachplanMedia teachplanMedia) {
+        return teachplanService.saveMdia(teachplanMedia);
+    }
+
+    @Override
+    @ResponseBody
+    @GetMapping("/courseview/{id}")
+    public CourseView courseview(@PathVariable("id") String id) {
+        return courseBaseService.getCoruseView(id);
+    }
+
+    @Override
+    @ResponseBody
+    @PostMapping("/previwe/{id}")
+    public CoursePublishResult preview(@PathVariable String id) {
+        return courseBaseService.preview(id);
     }
 }
 
