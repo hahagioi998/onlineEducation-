@@ -15,6 +15,7 @@
         <module name="xc-framework-utils" />
         <module name="xc-framework-common" />
         <module name="xc-service-gateway" />
+        <module name="xc-service-learning" />
         <module name="xc-service-manage-order" />
         <module name="test-freemarker" />
         <module name="xc-service-ucenter-auth" />
