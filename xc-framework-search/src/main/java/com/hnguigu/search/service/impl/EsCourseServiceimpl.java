@@ -5,6 +5,7 @@ import com.hnguigu.common.model.response.CommonCode;
 import com.hnguigu.common.model.response.QueryResponseResult;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.domain.course.CoursePub;
+import com.hnguigu.domain.course.TeachplanMediaPub;
 import com.hnguigu.domain.search.CourseSearchParam;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchRequest;
@@ -43,7 +44,12 @@ public class EsCourseServiceimpl {
     private String type;
     @Value("${xuecheng.course.source_field}")
     private String source_field;
-
+    @Value("${xuecheng.media.index}")
+    private String mediaIndex;
+    @Value("${xuecheng.media.type}")
+    private String mediaType;
+    @Value("${xuecheng.media.source_field}")
+    private String mediaSourceField;
     @Autowired
     RestHighLevelClient restHighLevelClient;
 
@@ -227,5 +233,56 @@ public class EsCourseServiceimpl {
         }
 
         return map;
+    }
+    //根据多个课程计划id查询课程媒资信息
+    public QueryResponseResult<TeachplanMediaPub> getmedia(String[] teacplans) {
+        //定义一个搜索请求对象
+        SearchRequest searchRequest=new SearchRequest(mediaIndex);
+        //指定type
+        searchRequest.types(mediaType);
+
+        //定义searchSourceBilder
+        SearchSourceBuilder searchSourceBuilder=new SearchSourceBuilder();
+
+
+        //设置使用termQuery
+        searchSourceBuilder.query(QueryBuilders.termsQuery("teachplan_id",teacplans));
+        //过滤源字段，不用设置源字段，取出所有字段
+        String[] split = mediaSourceField.split(",");
+        searchSourceBuilder.fetchSource(split,new String[]{});
+        long total=0L;
+
+        searchRequest.source(searchSourceBuilder);
+        //使用es的客户端进行搜索请求es
+        List<TeachplanMediaPub> teachplanMediaPubs=new ArrayList<>();
+        try {
+            SearchResponse search = restHighLevelClient.search(searchRequest);
+            SearchHits hits = search.getHits();
+            total = hits.totalHits;
+            SearchHit[] hits1 = hits.getHits();
+            for (SearchHit hit:hits1){
+                TeachplanMediaPub teachplanMediaPub=new TeachplanMediaPub();
+                Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+                //取出课程计划媒资信息
+                String courseid = (String) sourceAsMap.get("courseid");
+                String media_id = (String) sourceAsMap.get("media_id");
+                String media_url = (String) sourceAsMap.get("media_url");
+                String teachplan_id = (String) sourceAsMap.get("teachplan_id");
+                String media_fileoriginalname = (String) sourceAsMap.get("media_fileoriginalname");
+                teachplanMediaPub.setCourseId(courseid);
+                teachplanMediaPub.setMediaUrl(media_url);
+                teachplanMediaPub.setMediaFileOriginalName(media_fileoriginalname);
+                teachplanMediaPub.setMediaId(media_id);
+                teachplanMediaPub.setTeachplanId(teachplan_id);
+                //将数据加入列表
+                teachplanMediaPubs.add(teachplanMediaPub);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        QueryResult<TeachplanMediaPub> queryResponseResult=new QueryResult<>();
+        queryResponseResult.setList(teachplanMediaPubs);
+        queryResponseResult.setTotal(total);
+        return new QueryResponseResult<TeachplanMediaPub>(CommonCode.SUCCESS,queryResponseResult);
     }
 }

@@ -6,25 +6,20 @@ import com.hnguigu.common.model.response.CommonCode;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResultCode;
 import com.hnguigu.course.client.CmsPageClient;
-import com.hnguigu.course.repository.CourseBaseRepository;
-import com.hnguigu.course.repository.CourseMarketRepository;
-import com.hnguigu.course.repository.CoursePicRepository;
-import com.hnguigu.course.repository.TeachplanRepository;
+import com.hnguigu.course.repository.*;
 import com.hnguigu.course.service.course.CourseBaseService;
 import com.hnguigu.course.service.course.TeachplanService;
 import com.hnguigu.domain.cms.CmsPage;
 import com.hnguigu.domain.cms.response.CmsPageResult;
 import com.hnguigu.domain.cms.response.CmsPostPageResult;
-import com.hnguigu.domain.course.CourseBase;
-import com.hnguigu.domain.course.CourseMarket;
-import com.hnguigu.domain.course.CoursePic;
-import com.hnguigu.domain.course.Teachplan;
+import com.hnguigu.domain.course.*;
 import com.hnguigu.domain.course.ext.CourseInfo;
 import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.CourseCode;
 import com.hnguigu.domain.course.response.CoursePublishResult;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -38,6 +33,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +54,10 @@ public class CourseBaseServiceimpl implements CourseBaseService {
     TeachplanService teachplanService;
     @Autowired
     CmsPageClient cmsPageClient;
+    @Autowired
+    TeachplanMediaRepositor teachplanMediaRepositor;
+    @Autowired
+    TeachplanMediaPubRepositor teachplanMediaPubRepositor;
     @Value("${course‐publish.dataUrlPre}")
     private String publish_dataUrlPre;
     @Value("${course‐publish.pagePhysicalPath}")
@@ -320,7 +320,26 @@ public class CourseBaseServiceimpl implements CourseBaseService {
         }
 
         String pageUrl = cmsPostPageResult.getPageUrl();
+        //向teachplanMediaPub保存课程媒资信息
+        this.saveTeachplanMediaPub(id);
         return new CoursePublishResult(CommonCode.SUCCESS,pageUrl);
+    }
+
+    //向teachplanMediaPub保存课程媒资信息
+    private void saveTeachplanMediaPub(String courseId){
+        //先删除teachplanMediapub中的数据
+        teachplanMediaPubRepositor.deleteByCourseId(courseId);
+        //从teachplanMedia中查询
+        List<TeachplanMedia> byCourseId = teachplanMediaRepositor.findByCourseId(courseId);
+        //将teachplanMedia中的数据插入到teachplanMediaPub中
+        List<TeachplanMediaPub> teachplanMediaPubs=new ArrayList<>();
+        for (TeachplanMedia teachplanMedia:byCourseId){
+            TeachplanMediaPub teachplanMediaPub=new TeachplanMediaPub();
+            BeanUtils.copyProperties(teachplanMedia,teachplanMediaPub);
+            teachplanMediaPub.setTimestamp(new Date());
+            teachplanMediaPubs.add(teachplanMediaPub);
+        }
+        teachplanMediaPubRepositor.saveAll(teachplanMediaPubs);
     }
 
     //更新课程状态为已发布 代码为202002

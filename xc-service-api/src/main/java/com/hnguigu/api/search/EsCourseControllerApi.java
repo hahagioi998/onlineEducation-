@@ -3,6 +3,7 @@ package com.hnguigu.api.search;
 
 import com.hnguigu.common.model.response.QueryResponseResult;
 import com.hnguigu.domain.course.CoursePub;
+import com.hnguigu.domain.course.TeachplanMediaPub;
 import com.hnguigu.domain.search.CourseSearchParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,4 +21,7 @@ public interface EsCourseControllerApi {
 
     @ApiOperation("根据课程id查询课程信息")
     public Map<String,CoursePub>  getAll(String id);
+
+    @ApiOperation("根据课程计划id查询课程媒资信息")
+    public TeachplanMediaPub getMedia(String id);
 }

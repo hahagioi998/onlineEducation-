@@ -20,11 +20,11 @@ public class CourseLearningController implements CourseLearningControllerApi {
     @Autowired
     LearningService learningService;
 
+
     @Override
     @GetMapping("/getmedia/{courseId}/{teachplanId}")
-    public GetMediaResult getmedia(@PathVariable("courseId") String courseId,
+    public GetMediaResult getMedia(@PathVariable("courseId") String courseId,
                                    @PathVariable("teachplanId")String teachplanId) {
-
         return learningService.getmedia(courseId,teachplanId);
     }
 }

@@ -138,7 +138,7 @@ public class courseController extends BaseController implements CourseController
     }
 
     //当用户拥有course_teachplan_list权限的时候方可访问此方法
-    @PreAuthorize("hasAuthority('course_teachplan_list')")
+//    @PreAuthorize("hasAuthority('course_teachplan_list')")
     @GetMapping("/teachplan/list/{courseid}")
     @ResponseBody
     @Override
@@ -227,8 +227,8 @@ public class courseController extends BaseController implements CourseController
         ResponseResult responseResult = coursePicService.deleteCoursePic(courseId);
         return responseResult;
     }
-
-    @GetMapping("/coursebase/list/{page}/{size}")
+    //俩个一样的请求
+    @GetMapping("/coursebases/list/{page}/{size}")
     public QueryResponseResult<CourseInfo> findCourseList(@PathVariable("page") int page,@PathVariable("size") int size, CourseListRequest courseListRequest){
             //获取当前用户信息
             XcOauth2Util xcOauth2Util = new XcOauth2Util();
@@ -245,6 +245,7 @@ public class courseController extends BaseController implements CourseController
         filesystemRepositor.deleteById(pic);
     }
     @Override
+    @ResponseBody
     @PostMapping("savemedia")
     public ResponseResult saveMedia(@RequestBody TeachplanMedia teachplanMedia) {
         return teachplanService.saveMdia(teachplanMedia);

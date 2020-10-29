@@ -21,5 +21,6 @@ public class categoryController {
     public CategoryNode list(){
         CategoryNode categoryNode = categoryService.findList();
         return categoryNode;
+
     }
 }
