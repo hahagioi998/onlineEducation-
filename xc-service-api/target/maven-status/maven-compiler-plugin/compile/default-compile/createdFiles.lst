@@ -1,3 +1,4 @@
+com\hnguigu\api\learning\CourseLearningControllerApi.class
 com\hnguigu\api\course\FilesystemControllerApi.class
 com\hnguigu\api\search\CoursePicService.class
 com\hnguigu\api\course\SysControllerApi.class

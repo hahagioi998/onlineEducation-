@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  **/
 @Data
-@NoArgsConstructor
+@NoArgsConstructor //无参构造器
 public class CmsPostPageResult extends ResponseResult {
 
     String pageUrl;

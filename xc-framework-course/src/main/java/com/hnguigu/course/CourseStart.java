@@ -1,6 +1,9 @@
 package com.hnguigu.course;
 
 
+import com.hnguigu.common.interceptor.FeignClientInterceptor;
+import io.minio.MinioClient;
+import org.mybatis.spring.annotation.MapperScan;
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @EntityScan("com.hnguigu.domain.course")
+@MapperScan("com.hnguigu.course.repository")
 @EnableDiscoveryClient
 @EnableFeignClients
 @ComponentScan(basePackages = {"com.hnguigu.api"})
@@ -48,5 +52,10 @@ public class CourseStart {
 
     public static void main(String[] args) {
         SpringApplication.run(CourseStart.class,args);
+    }
+
+    @Bean
+    public FeignClientInterceptor getFeignClientInterceptor(){
+        return new FeignClientInterceptor();
     }
 }

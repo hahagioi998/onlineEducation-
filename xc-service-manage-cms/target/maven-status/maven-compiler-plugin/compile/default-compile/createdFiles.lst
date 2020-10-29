@@ -3,6 +3,7 @@ com\hnguigu\manage_cms\dao\CmsPageRepository.class
 com\hnguigu\manage_cms\controller\CmsConfigController.class
 com\hnguigu\manage_cms\controller\CmsTemplateController.class
 com\hnguigu\manage_cms\config\CordFilter.class
+com\hnguigu\manage_cms\config\ResourceServerConfig.class
 com\hnguigu\manage_cms\config\MongoDBConfig.class
 com\hnguigu\manage_cms\config\MongoConfig.class
 com\hnguigu\manage_cms\dao\CmsSiteRepository.class

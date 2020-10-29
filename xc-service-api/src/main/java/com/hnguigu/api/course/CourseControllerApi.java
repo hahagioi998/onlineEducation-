@@ -2,17 +2,14 @@ package com.hnguigu.api.course;
 
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
-import com.hnguigu.domain.course.CourseBase;
-import com.hnguigu.domain.course.CourseMarket;
-import com.hnguigu.domain.course.CoursePic;
-import com.hnguigu.domain.course.Teachplan;
-import com.hnguigu.domain.course.TeachplanMedia;
+import com.hnguigu.domain.course.*;
 import com.hnguigu.domain.course.ext.CourseInfo;
 import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.CoursePublishResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
+
 import com.hnguigu.domain.ucenter.XcTeacher;
 import io.swagger.annotations.ApiOperation;
 
@@ -62,7 +59,7 @@ public interface CourseControllerApi {
     //根据id查询图片地址
     CoursePic findCoursePic(String CourseId);
     //删除上传图片
-    ResponseResult DeleteCoursePicBycourseId(String courseId);
+    ResponseResult DeleteCoursePicBycourseId (String courseId);
 
     @ApiOperation("保存课程计划与媒资文件关联")
     public  ResponseResult saveMedia(TeachplanMedia teachplanMedia);
@@ -72,4 +69,8 @@ public interface CourseControllerApi {
 
     @ApiOperation("预览课程")
     public CoursePublishResult preview(String id);
+
+    @ApiOperation("课程发布")
+    public CoursePublishResult prelish(String id);
+
 }

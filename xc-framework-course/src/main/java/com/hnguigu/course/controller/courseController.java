@@ -4,22 +4,35 @@ package com.hnguigu.course.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.hnguigu.api.course.CourseControllerApi;
+import com.hnguigu.common.model.response.QueryResponseResult;
 import com.hnguigu.common.model.response.QueryResult;
 import com.hnguigu.common.model.response.ResponseResult;
+import com.hnguigu.common.web.BaseController;
 import com.hnguigu.course.repository.FilesystemRepositor;
+import com.hnguigu.course.service.CourseService;
+import com.hnguigu.course.service.course.CourseBaseService;
+import com.hnguigu.course.service.course.CourseMarketService;
+import com.hnguigu.course.service.course.CoursePicService;
+import com.hnguigu.course.service.course.TeachplanService;
+import com.hnguigu.domain.course.CourseBase;
+import com.hnguigu.domain.course.CourseMarket;
+import com.hnguigu.domain.course.CoursePic;
+import com.hnguigu.domain.course.Teachplan;
 import com.hnguigu.course.service.course.*;
 import com.hnguigu.domain.course.*;
 import com.hnguigu.domain.course.ext.CourseInfo;
 import com.hnguigu.domain.course.ext.CourseView;
 import com.hnguigu.domain.course.ext.TeachplanNode;
+import com.hnguigu.domain.course.request.CourseListRequest;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.CoursePublishResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
 import com.hnguigu.domain.filesystem.FileSystem;
-import com.hnguigu.domain.ucenter.XcTeacher;
+import com.hnguigu.utils.XcOauth2Util;
 import io.minio.MinioClient;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +43,7 @@ import java.util.Optional;
 @CrossOrigin
 @Controller
 @RequestMapping("/course")
-public class courseController implements CourseControllerApi {
-
-
-
+public class courseController extends BaseController implements CourseControllerApi {
     @Autowired
     private CourseBaseService courseBaseService;
 
@@ -50,6 +60,7 @@ public class courseController implements CourseControllerApi {
     private FilesystemRepositor filesystemRepositor;
 
     @Autowired
+    CourseService courseService;
     private CourseOffService courseOffService;
 
     @GetMapping("/coursebase/list/{page}/{size}")
@@ -126,6 +137,8 @@ public class courseController implements CourseControllerApi {
         return addCourseResult;
     }
 
+    //当用户拥有course_teachplan_list权限的时候方可访问此方法
+    @PreAuthorize("hasAuthority('course_teachplan_list')")
     @GetMapping("/teachplan/list/{courseid}")
     @ResponseBody
     @Override
@@ -142,6 +155,7 @@ public class courseController implements CourseControllerApi {
         return teachplan;
     }
 
+    @PreAuthorize("hasAuthority('course_teachplan_add')")
     @PostMapping("/teachplan/add")
     @ResponseBody
     @Override
@@ -160,7 +174,6 @@ public class courseController implements CourseControllerApi {
 
     @GetMapping("/teachplan/TeachplanByid/{id}")
     @ResponseBody
-    @Override
     public Teachplan TeachplanQueryByid(@PathVariable  String id) {
         Teachplan teachplanByid = teachplanService.findTeachplanByid(id);
         return teachplanByid;
@@ -168,13 +181,11 @@ public class courseController implements CourseControllerApi {
 
     @PutMapping("/teachplan/update")
     @ResponseBody
-    @Override
     public AddCourseResult updateTeachplan(@RequestBody Teachplan teachplan) {
         AddCourseResult addCourseResult = teachplanService.UpdateTeachplan(teachplan);
         return addCourseResult;
     }
 
-    @Override
     @PostMapping("/coursepic/add")
     @ResponseBody
     public ResponseResult addCoursePic(@RequestParam("courseId") String courseId, @RequestParam("pic") String pic) {
@@ -183,9 +194,10 @@ public class courseController implements CourseControllerApi {
         //保存课程图片 return courseService.saveCoursePic(courseId,pic);
     }
 
+    //当用户拥有course_pic_list权限的时候方可访问此方法
+    @PreAuthorize("hasAuthority('course_pic_list')")
     @GetMapping("/coursepic/list/{courseId}")
     @ResponseBody
-    @Override
     public CoursePic findCoursePic(@PathVariable String courseId) {
         CoursePic coursePicBycourseId = coursePicService.findCoursePicBycourseId(courseId);
         return coursePicBycourseId;
@@ -193,7 +205,6 @@ public class courseController implements CourseControllerApi {
 
     @DeleteMapping("/coursepic/delete")
     @ResponseBody
-    @Override
     public ResponseResult DeleteCoursePicBycourseId(@RequestParam(value = "courseId") String courseId) {
          String url = "http://127.0.0.1:9000";  //minio服务的IP端口
          String accessKey = "minioadmin";
@@ -217,6 +228,16 @@ public class courseController implements CourseControllerApi {
         return responseResult;
     }
 
+    @GetMapping("/coursebase/list/{page}/{size}")
+    public QueryResponseResult<CourseInfo> findCourseList(@PathVariable("page") int page,@PathVariable("size") int size, CourseListRequest courseListRequest){
+            //获取当前用户信息
+            XcOauth2Util xcOauth2Util = new XcOauth2Util();
+            XcOauth2Util.UserJwt userJwt = xcOauth2Util.getUserJwtFromHeader(request);
+            //当前所属单位的id
+            String company_id = userJwt.getCompanyId();
+            QueryResponseResult<CourseInfo> courseList = courseService.findCourseList(company_id, page, size, courseListRequest);
+            return courseList;
+    }
     //删除filesystem表的数据//根据地址删除
     @DeleteMapping("/Deletefilesystem")
     @ResponseBody
@@ -241,6 +262,13 @@ public class courseController implements CourseControllerApi {
     @PostMapping("/previwe/{id}")
     public CoursePublishResult preview(@PathVariable String id) {
         return courseBaseService.preview(id);
+    }
+
+    @Override
+    @ResponseBody
+    @PostMapping("/publish/{id}")
+    public CoursePublishResult prelish(@PathVariable String id) {
+        return courseBaseService.publish(id);
     }
 }
 

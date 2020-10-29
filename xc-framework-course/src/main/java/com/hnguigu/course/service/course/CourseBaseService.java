@@ -25,4 +25,6 @@ public interface CourseBaseService {
     CourseView getCoruseView(String id);
 
     CoursePublishResult preview(String id);
+
+    CoursePublishResult publish(String id);
 }

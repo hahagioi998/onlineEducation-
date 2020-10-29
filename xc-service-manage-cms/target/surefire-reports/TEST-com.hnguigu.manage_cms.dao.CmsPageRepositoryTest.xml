@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" time="0.489" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" time="0.472" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2020.2.1"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -65,9 +65,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testfindByPageName" time="0.409"/>
-  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testFindAll" time="0.032"/>
-  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testFindAllByExample" time="0.022"/>
-  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testFindPage" time="0.013"/>
-  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testUpdate" time="0.013"/>
+  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testfindByPageName" time="0.378"/>
+  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testFindAll" time="0.051"/>
+  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testFindAllByExample" time="0.026"/>
+  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testFindPage" time="0.012"/>
+  <testcase classname="com.hnguigu.manage_cms.dao.CmsPageRepositoryTest" name="testUpdate" time="0.005"/>
 </testsuite>
