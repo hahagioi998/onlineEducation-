@@ -13,11 +13,8 @@ import com.hnguigu.domain.course.ext.TeachplanNode;
 import com.hnguigu.domain.course.response.AddCourseResult;
 import com.hnguigu.domain.course.response.CoursePublishResult;
 import com.hnguigu.domain.course.response.DeleteCourseResult;
-<<<<<<< HEAD
 import com.hnguigu.domain.ucenter.XcTeacher;
-=======
 import io.swagger.annotations.ApiOperation;
->>>>>>> origin/master
 
 import java.util.List;
 
@@ -53,7 +50,6 @@ public interface CourseControllerApi {
     //删除课程计划
     DeleteCourseResult  deleteTeachplan(TeachplanNode teachplanNode);
 
-<<<<<<< HEAD
     //查询修改需要的teachplan
     Teachplan TeachplanQueryByid(String id);
 
@@ -68,7 +64,6 @@ public interface CourseControllerApi {
     //删除上传图片
     ResponseResult DeleteCoursePicBycourseId(String courseId);
 
-=======
     @ApiOperation("保存课程计划与媒资文件关联")
     public  ResponseResult saveMedia(TeachplanMedia teachplanMedia);
 
@@ -77,5 +72,4 @@ public interface CourseControllerApi {
 
     @ApiOperation("预览课程")
     public CoursePublishResult preview(String id);
->>>>>>> origin/master
 }

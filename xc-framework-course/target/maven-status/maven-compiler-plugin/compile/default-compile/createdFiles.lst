@@ -11,7 +11,6 @@ com\hnguigu\course\controller\courseController.class
 com\hnguigu\course\service\impl\courseimpl\TeachplanServiceimpl$2.class
 com\hnguigu\course\service\impl\courseimpl\CourseBaseServiceimpl.class
 com\hnguigu\course\service\sys\sysDictionaryService.class
-com\hnguigu\course\service\course\CourseOffServcie.class
 com\hnguigu\course\controller\sysController.class
 com\hnguigu\course\controller\filesystemController.class
 com\hnguigu\course\service\impl\courseimpl\TeachplanServiceimpl.class

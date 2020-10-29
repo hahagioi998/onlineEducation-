@@ -12,12 +12,9 @@ spring:
       discovery:
         enabled: true
         server-addr: http://127.0.0.1:8848
-<<<<<<< HEAD:xc-framework-course/target/classes/bootstrap.yml
-=======
     loadbalancer:
       ribbon:
         enable: true
->>>>>>> origin/master:xc-framework-course/target/classes/application.yml
   main:
     allow-bean-definition-overriding: true
   datasource:

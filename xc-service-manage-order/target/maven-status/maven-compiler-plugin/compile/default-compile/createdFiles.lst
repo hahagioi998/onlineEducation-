@@ -1,0 +1,11 @@
+com\hnguigu\order\config\AsyncTaskConfig.class
+com\hnguigu\order\service\TaskService.class
+com\hnguigu\order\controller\OrderController.class
+com\hnguigu\order\weixinpay\WXPayUtil.class
+com\hnguigu\order\mq\ChooseCourseTask.class
+com\hnguigu\order\dao\XcTaskRepository.class
+com\hnguigu\ManageOrderApplication.class
+com\hnguigu\order\weixinpay\WXPayConstants.class
+com\hnguigu\order\weixinpay\WXPayXmlUtil.class
+com\hnguigu\order\utils\UrlPreUtils.class
+com\hnguigu\order\weixinpay\WXPayConstants$SignType.class

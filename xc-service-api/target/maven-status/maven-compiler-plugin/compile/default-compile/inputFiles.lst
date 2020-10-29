@@ -1,33 +1,19 @@
-<<<<<<< HEAD
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\course\CategoryControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsConfigControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsTemplateControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\cms\SysDictionaryControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\teacher\TeacherControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\course\CourseControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\course\SysControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\auth\AuthControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsSiteControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\course\FilesystemControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsPageControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\media\MediaUploadControllerApi.java
-E:\spring-cloud\zuoye\yzy\onlineEducation-5\xc-service-api\src\main\java\com\hnguigu\api\ucenter\UcenterControllerApi.java
-=======
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsConfigControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsPageControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\course\SysControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\search\CoursePubService.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsSiteControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\ucenter\UcenterControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\cms\SysDictionaryControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\media\MediaUploadControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\course\CategoryControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\course\FilesystemControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\search\CourseBaseService.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\media\MediaFileControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\search\CoursePicService.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\auth\AuthControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\course\CourseControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsTemplateControllerApi.java
-F:\education\onlineEducation07\xc-service-api\src\main\java\com\hnguigu\api\search\EsCourseControllerApi.java
->>>>>>> origin/master
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\cms\SysDictionaryControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\search\CoursePubService.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsSiteControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsTemplateControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\course\FilesystemControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\ucenter\UcenterControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\media\MediaFileControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsConfigControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\search\CoursePicService.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\course\SysControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\order\OrderControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\teacher\TeacherControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\search\EsCourseControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\search\CourseBaseService.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\auth\AuthControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\cms\CmsPageControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\course\CourseControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\media\MediaUploadControllerApi.java
+E:\spring-cloud\zuoye\yzy\onlineEducation-5 - 副本\xc-service-api\src\main\java\com\hnguigu\api\course\CategoryControllerApi.java
