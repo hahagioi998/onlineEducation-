@@ -27,5 +27,4 @@ public interface TeachplanService {
 
     //添加teachplan数据
     AddCourseResult UpdateTeachplan(Teachplan teachplan);
-
 }
